@@ -1,0 +1,4 @@
+package summary
+
+interface Calculator {
+}
