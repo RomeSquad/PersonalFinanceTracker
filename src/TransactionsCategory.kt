@@ -1,4 +1,4 @@
-enum class Category {
+enum class TransactionsCategory {
     ;
     enum class Income{
 
