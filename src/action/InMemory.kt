@@ -2,9 +2,9 @@ package action
 
 import Transaction
 
-class InMemory(val transactions:MutableList<Transaction>) {
+class InMemory(val transactions: MutableList<Transaction>) : UserActions {
 
-    fun deleteTransaction(transaction: Transaction) {
+    override fun deleteTransaction(transaction: Transaction) {
         transactions.remove(transaction)
     }
 }
