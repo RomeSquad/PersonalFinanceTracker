@@ -1,0 +1,4 @@
+package report
+
+interface report {
+}

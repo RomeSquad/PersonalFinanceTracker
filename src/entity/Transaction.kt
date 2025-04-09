@@ -2,6 +2,6 @@ package entity
 
 import java.util.UUID
 
-data class Transactions(
+data class Transaction(
     val id: UUID
 )
