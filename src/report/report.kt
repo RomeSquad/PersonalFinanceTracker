@@ -1,4 +1,4 @@
 package report
 
-interface report {
+interface Report {
 }
