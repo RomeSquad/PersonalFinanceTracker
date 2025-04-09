@@ -1,4 +1,5 @@
 package report
 
 interface Report {
+
 }
