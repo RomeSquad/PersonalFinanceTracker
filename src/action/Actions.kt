@@ -1,4 +1,4 @@
 package action
 
-interface Actions {
+interface UserActions {
 }
