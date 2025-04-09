@@ -8,6 +8,7 @@ fun userActionsMenu() {
 
     print("Please enter your name :  ")
     val name: String = readln()
+    println("************* ")
     println("Welcome $name ")
 
     println("************* ")
