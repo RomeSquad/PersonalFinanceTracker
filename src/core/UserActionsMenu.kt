@@ -2,30 +2,26 @@ package core
 
 fun userActionsMenu() {
 
-    println("************* ")
-    println("Welcome to your Finance Tracker App ")
-    println("************* ")
+    welcomeSection()
+    optionSection()
 
-    print("Please enter your name :  ")
-    val name: String = readln()
-    println("************* ")
-    println("Welcome $name ")
+}
 
+private fun optionSection() {
     println("************* ")
     println("you have many options to choice")
     println("************* ")
 
-    println("if you want to add money ->  press letter ( a ) ")
-    println("if you want to edit  -> press letter ( e )")
-    println("if you want to view  -> press letter ( v )  ")
-    println("if you want to delete  ->  press letter ( d ) ")
-    println("if you want to show your monthly summary report ->  press letter ( m ) ")
-    println("if you want to show your balance report ->  press letter ( r )  ")
-    println("if you want to exit the app ->  press letter ( q ) ")
+    println("Add Transaction ->  press letter ( a ) ")
+    println("Edit Transaction -> press letter ( e )")
+    println("View Transaction -> press letter ( v )  ")
+    println("Delete Transaction ->  press letter ( d ) ")
+    println("Show your monthly summary report ->  press letter ( m ) ")
+    println("Show your balance report ->  press letter ( r )  ")
+    println("Exit the app ->  press letter ( q ) ")
 
     print("what do you want : ")
     val option: String = readln()
-
 
 
     when (option) {
@@ -63,5 +59,20 @@ fun userActionsMenu() {
             // TODO call balance report fun
         }
 
+        else -> {
+            println("Invalid Option")
+        }
+
     }
+}
+
+private fun welcomeSection() {
+    println("************* ")
+    println("Welcome to your Finance Tracker App ")
+    println("************* ")
+
+    print("Please enter your name :  ")
+    val name: String = readln()
+    println("************* ")
+    println("Welcome $name ")
 }
