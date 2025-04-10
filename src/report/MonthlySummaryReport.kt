@@ -1,18 +1,18 @@
 package report
 
-import database.TransactionsDB
+import database.TransactionsManager
 
 
-class MonthlySummaryReport(private val dataBase: TransactionsDB) : report {
+class MonthlySummaryReport(private val transactionsManager: TransactionsManager) : Report {
     override fun generateReport(): String {
-        val data = dataBase.getTransctions()
+        val data  = transactionsManager.getAllTransactions()
 
         if (data.isEmpty()) {
-            return "No transactions found."
+            return "No transactions found"
         }
 
         val reportBuilder = StringBuilder()
-        reportBuilder.append("Transactions List:\n")
+        reportBuilder.append("Transactions Monthly List:\n")
 
         data.forEach { transaction ->
             reportBuilder.append("• Date: ${transaction.date} | Amount: ${transaction.amount} | Description: ${transaction.category}\n")
@@ -21,3 +21,4 @@ class MonthlySummaryReport(private val dataBase: TransactionsDB) : report {
         return reportBuilder.toString()
     }
 }
+
