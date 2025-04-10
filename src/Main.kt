@@ -14,6 +14,9 @@ fun main() {
         type = TransactionType.EXPENSE
     )
 
+
+    userActionsMenu()
+
     println("Valid Transaction:$validTransaction ")
 
 
