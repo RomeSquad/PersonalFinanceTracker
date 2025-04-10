@@ -1,6 +1,7 @@
 package database
 
 import entity.Transaction
+import java.util.UUID
 
 
 class TransactionsInMemory : TransactionsManager {
@@ -8,6 +9,10 @@ class TransactionsInMemory : TransactionsManager {
 
     override fun addTransaction(transaction: Transaction) { //TODO : Zinah
         TODO("Not yet implemented")
+    }
+
+    override fun deleteTransaction(transactionID: UUID) {
+        transactions.remove(transactions.find { it.id == transactionID })
     }
 
     override fun deleteTransaction(transaction: Transaction) {
