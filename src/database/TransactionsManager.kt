@@ -6,7 +6,6 @@ import java.util.UUID
 interface TransactionsManager {
     fun addTransaction(transaction: Transaction)
     fun deleteTransaction(transactionID: UUID)
-
     fun getAllTransactions() :List<Transaction>
     fun editTransaction(transaction: Transaction)
 
