@@ -1,5 +1,7 @@
+package entity
+
 enum class ExpensesCategory (
-    val transactionsCategoryType: TransactionsCategoryType = TransactionsCategoryType.EXPENSES ,
+    val transactionsCategoryType: TransactionsCategoryType = TransactionsCategoryType.EXPENSES,
     val categoryName : String
 ){
     SHOPPING(categoryName = "shopping"),
