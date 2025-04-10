@@ -6,7 +6,7 @@ import java.util.*
 data class Transaction(
     val id: UUID = UUID.randomUUID(),
     val amount: Double,
-    val transactionsType: String,
+    val transactionsType:TransactionsType, //TODO : Replace it with enum
     val  category:Categories,
     val date: LocalDate,
 ) {
