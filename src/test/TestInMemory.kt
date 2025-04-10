@@ -1,6 +1,6 @@
 package test
 
-import Transaction
+import entity.Transaction
 import java.time.LocalDate
 
 

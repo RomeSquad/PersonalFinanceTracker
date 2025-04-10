@@ -1,27 +1,7 @@
-import java.time.LocalDate
+import ui.userActionsMenu
 
-// Run transaction validation checks
 fun main() {
-    val validTransaction = Transaction(
-        amount = 120.0,
-        category = "Salary",
-        type = TransactionType.INCOME
-    )
-
-    val invalidTransaction = Transaction(
-        amount = -40.0,
-        category = "",
-        type = TransactionType.EXPENSE
-    )
-
-
     userActionsMenu()
-
-    println("Valid Transaction:$validTransaction ")
-
-
-
-    println("Invalid Transaction:$invalidTransaction")
-
-
 }
+
+
