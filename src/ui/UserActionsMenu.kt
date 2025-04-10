@@ -2,12 +2,15 @@ package ui
 
 import database.TransactionsInMemory
 import database.TransactionsManager
+import entity.Categories
 import entity.Transaction
+import entity.TransactionsType
 import report.BalanceReportImpl
 import report.MonthlySummaryReport
 import report.Report
 import java.time.LocalDate
 import java.time.Month
+import java.time.format.DateTimeFormatter
 
 fun userActionsMenu() {
     welcomeSection()
@@ -32,107 +35,93 @@ private fun optionSection() {
 
 
     val transactionsManager: TransactionsManager = TransactionsInMemory()
-    val balanceReport : Report = BalanceReportImpl(transactionsManager)
+    val balanceReport :Report = BalanceReportImpl(transactionsManager)
 
     when (option) {
         "a" -> {
-            //TODO call add fun
+
 
             println("add transaction ")
 
-            print("enter id ")
-            val id = readln()
-
             print("enter amount :")
-            val amount = readln()
+            val amount: Double = readln().toDouble()
 
-            print("enter cat :")
-            val category = readln()
+            print("enter category :")
+            val category = Categories.valueOf(readln())
 
-            print("enter type :")
-            val type = readln()
+            print("enter type : ")
+            val type = TransactionsType.valueOf(readln())
 
-             print("enter date :")
-            val date = readln()
-
-
+            print("enter date (yyyy-mm-dd) : ")
+            val date = LocalDate.parse(readln(), DateTimeFormatter.ISO_DATE)
 
 
 //            transactionsManager.addTransaction(
 //                Transaction(
-        //   id = 123
-//                    amount = 25.0, // replace with input
-//                    category = "ams",// replace with input2
-//                    //type = " "  // replace with type
-//                    date = LocalDate.of(2025, Month.JANUARY, 2)
+//                    amount = amount,
+//                    category = category,
+//                    transactionsType = type,
+//                    date = date
 //                )
 //            )
         }
 
         "e" -> {
-            //TODO call edit fun
+
 
             println("edit transaction ")
             print("enter id ")
             val id = readln()
 
             print("enter amount :")
-            val amount = readln()
+            val amount: Double = readln().toDouble()
 
-            print("enter cat :")
-            val category = readln()
+            print("enter category :")
+            val category = Categories.valueOf(readln())
 
-            print("enter type :")
-            val type = readln()
+            print("enter type : ")
+            val type = TransactionsType.valueOf(readln())
 
-            print("enter date :")
-            val date = readln()
-
-
+            print("enter date (yyyy-mm-dd) : ")
+            val date = LocalDate.parse(readln(), DateTimeFormatter.ISO_DATE)
 
 
-
-            // take id  from user
-           // transactionsManager.editTransaction(
-           // Transaction(
-                //   id = 123
-//                    amount = 25.0, // replace with input
-//                    category = "ams",// replace with input2
-//                    //type = " "  // replace with type
-//                    date = LocalDate.of(2025, Month.JANUARY, 2)
+//            transactionsManager.editTransaction(
+//                Transaction(
+//                    amount = amount,
+//                    category = category,
+//                    transactionsType = type,
+//                    date = date
 //                )
+//            )
 
         }
 
         "v" -> {
-            //TODO call view fun
             transactionsManager.viewTransactions()
-           //transactionsManager.getAllTransactions()
-
-
 
         }
 
         "d" -> {
-            //TODO call delete fun
-//            print("enter now type :")
-//            val id = readln()
-//            transactionsManager.deleteTransaction(id)
+            // TODO call delete fun
+            // print("enter now type :")
+            // val id = readln()
+            // transactionsManager.deleteTransaction(id)
         }
 
         "m" -> {
             // TODO call monthly report fun
-           // MonthlySummaryReport(transactionsManager)
+            // MonthlySummaryReport(transactionsManager)
 
         }
 
         "r" -> {
-            val report = balanceReport.generateReport()
-            print(report)
+            val  report = balanceReport.generateReport()
+            println(report)
         }
 
         "q" -> {
-           println("Thanks")
+            println("Thanks")
         }
 
         else -> {
