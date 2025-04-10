@@ -1,16 +1,17 @@
 import java.time.LocalDate
+
 // Run transaction validation checks
 fun main() {
     val validTransaction = Transaction(
         amount = 120.0,
         category = "Salary",
-        date = LocalDate.now()
+        type = TransactionType.INCOME
     )
 
     val invalidTransaction = Transaction(
         amount = -40.0,
         category = "",
-        date = LocalDate.now().plusDays(3)
+        type = TransactionType.EXPENSE
     )
 
     println("Valid Transaction:$validTransaction ")
