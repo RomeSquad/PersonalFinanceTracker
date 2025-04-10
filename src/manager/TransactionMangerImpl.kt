@@ -4,14 +4,15 @@ import Transaction
 
 class TransactionMangerImpl : TransactionManger {
     private val transactions = mutableListOf<Transaction>()
-
     override fun editTransaction(transaction: Transaction): Boolean {
-        val transactionIndex = transactions.indexOf(transaction)
-        return if (transactionIndex != -1) {
-            transactions[transactionIndex] = transaction
+
+        val index = transactions.indexOfFirst { it.id == transaction.id }
+        return if (index != -1) {
+            transactions[index] = transaction
             true
-        } else
+        } else {
             false
+        }
     }
 
 }
