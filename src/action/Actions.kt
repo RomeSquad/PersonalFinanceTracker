@@ -1,4 +1,0 @@
-package action
-
-interface UserActions {
-}
