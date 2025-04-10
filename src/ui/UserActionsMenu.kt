@@ -1,5 +1,11 @@
 package ui
 
+import database.TransactionsInMemory
+import database.TransactionsManager
+import entity.Transaction
+import java.time.LocalDate
+import java.time.Month
+
 fun userActionsMenu() {
     welcomeSection()
     optionSection()
@@ -22,25 +28,66 @@ private fun optionSection() {
     val option: String = readln()
 
 
+    val transactionsManager: TransactionsManager = TransactionsInMemory()
+
     when (option) {
         "a" -> {
             //TODO call add fun
 
+            println("add transaction ")
+            print("enter amount :")
+            val input = readln()
+            print("enter cat :")
+            val input2 = readln()
+            print("enter type :")
+            val input3 = readln()
+
+
+//            transactionsManager.addTransaction(
+//                Transaction(
+//                    amount = 25.0, // replace with input
+//                    category = "ams",// replace with input2
+//                    //type = " "  // replace with type
+//                    date = LocalDate.of(2025, Month.JANUARY, 2)
+//                )
+//            )
         }
 
         "e" -> {
             //TODO call edit fun
 
+            println("edit transaction ")
+            print("enter now amount :")
+            val input = readln()
+            print("enter now cat :")
+            val input2 = readln()
+            print("enter now type :")
+            val input3 = readln()
+
+
+            // take id  from user
+           // transactionsManager.editTransaction(
+            //  amount = 25.0, // replace with input
+            //                    category = "ams",// replace with input2
+            //                    //type = " "  // replace with type
+           // date = LocalDate.of(2025, Month.JANUARY, 2)
+            // )
+
         }
 
         "v" -> {
             //TODO call view fun
+            transactionsManager.getAllTransactions()
+           // transactionsManager.getTransaction("535")
 
         }
 
         "d" -> {
             //TODO call delete fun
 
+                //     transactionsManager.deleteTransaction(
+            //// id
+            //            )
         }
 
         "m" -> {
@@ -54,7 +101,7 @@ private fun optionSection() {
         }
 
         "q" -> {
-            // TODO call balance report fun
+           println("Thanks")
         }
 
         else -> {
