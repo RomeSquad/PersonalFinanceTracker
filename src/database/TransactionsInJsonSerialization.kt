@@ -1,20 +1,17 @@
 package database
 
 import entity.Transaction
+import java.util.*
 
 class TransactionsInJsonSerialization: TransactionsManager {
-
     override fun addTransaction(transaction: Transaction) {
         TODO("Not yet implemented")
     }
 
-    override fun deleteTransaction(transaction: Transaction) {
+    override fun deleteTransaction(transactionID: UUID) {
         TODO("Not yet implemented")
     }
 
-    override fun getTransaction(transactionId: String): Transaction? {
-        TODO("Not yet implemented")
-    }
 
     override fun getAllTransactions(): List<Transaction> {
         TODO("Not yet implemented")
@@ -35,4 +32,6 @@ class TransactionsInJsonSerialization: TransactionsManager {
     override fun getTotalExpenses(): Double {
         TODO("Not yet implemented")
     }
+
+
 }
