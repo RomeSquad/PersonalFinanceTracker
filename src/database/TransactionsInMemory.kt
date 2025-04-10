@@ -8,7 +8,7 @@ class TransactionsInMemory : TransactionsManager {
 
     override fun addTransaction(transaction: Transaction) { //TODO : Zinah
 
-        transactions.add(addTransaction)
+        transactions.add(transaction)
     }
 
     override fun deleteTransaction(transaction: Transaction) {
