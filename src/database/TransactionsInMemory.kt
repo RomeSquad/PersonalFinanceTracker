@@ -22,9 +22,16 @@ class TransactionsInMemory : TransactionsManager {
         TODO("Not yet implemented")
     }
 
-    override fun editTransaction(transaction: Transaction) {//TODO : Abanoub
-        TODO("Not yet implemented")
+    override fun editTransaction(transaction: Transaction): Boolean {
+        val index = transactions.indexOfFirst { it.id == transaction.id }
+        return if (index != -1) {
+            transactions[index] = transaction
+            true
+        } else {
+            false
+        }
     }
+
 
     override fun getTotalBalance(): Double {
         TODO("Not yet implemented")
