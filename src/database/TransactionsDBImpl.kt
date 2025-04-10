@@ -13,4 +13,7 @@ class TransactionsDBImpl : TransactionsDB {
     override fun getTotalIncome(): Double = totalIncome
 
     override fun getTotalExpenses(): Double = totalExpense
+    override fun getTransctions(): List<Transaction> {
+     return transactions
+    }
 }
