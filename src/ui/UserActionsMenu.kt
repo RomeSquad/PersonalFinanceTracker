@@ -3,6 +3,7 @@ package ui
 import database.TransactionsInMemory
 import database.TransactionsManager
 import entity.Transaction
+import report.MonthlySummaryReport
 import java.time.LocalDate
 import java.time.Month
 
@@ -35,16 +36,28 @@ private fun optionSection() {
             //TODO call add fun
 
             println("add transaction ")
+
+            print("enter id ")
+            val id = readln()
+
             print("enter amount :")
-            val input = readln()
+            val amount = readln()
+
             print("enter cat :")
-            val input2 = readln()
+            val category = readln()
+
             print("enter type :")
-            val input3 = readln()
+            val type = readln()
+
+             print("enter date :")
+            val date = readln()
+
+
 
 
 //            transactionsManager.addTransaction(
 //                Transaction(
+        //   id = 123
 //                    amount = 25.0, // replace with input
 //                    category = "ams",// replace with input2
 //                    //type = " "  // replace with type
@@ -57,46 +70,62 @@ private fun optionSection() {
             //TODO call edit fun
 
             println("edit transaction ")
-            print("enter now amount :")
-            val input = readln()
-            print("enter now cat :")
-            val input2 = readln()
-            print("enter now type :")
-            val input3 = readln()
+            print("enter id ")
+            val id = readln()
+
+            print("enter amount :")
+            val amount = readln()
+
+            print("enter cat :")
+            val category = readln()
+
+            print("enter type :")
+            val type = readln()
+
+            print("enter date :")
+            val date = readln()
+
+
+
 
 
             // take id  from user
            // transactionsManager.editTransaction(
-            //  amount = 25.0, // replace with input
-            //                    category = "ams",// replace with input2
-            //                    //type = " "  // replace with type
-           // date = LocalDate.of(2025, Month.JANUARY, 2)
-            // )
+           // Transaction(
+                //   id = 123
+//                    amount = 25.0, // replace with input
+//                    category = "ams",// replace with input2
+//                    //type = " "  // replace with type
+//                    date = LocalDate.of(2025, Month.JANUARY, 2)
+//                )
 
         }
 
         "v" -> {
             //TODO call view fun
-            transactionsManager.getAllTransactions()
-           // transactionsManager.getTransaction("535")
+
+           //transactionsManager.getAllTransactions()
+
+
 
         }
 
         "d" -> {
             //TODO call delete fun
-
-                //     transactionsManager.deleteTransaction(
-            //// id
-            //            )
+//            print("enter now type :")
+//            val id = readln()
+//            transactionsManager.deleteTransaction(id)
         }
 
         "m" -> {
             // TODO call monthly report fun
+           // MonthlySummaryReport(transactionsManager)
 
         }
 
         "r" -> {
             // TODO call balance report fun
+            //
 
         }
 
