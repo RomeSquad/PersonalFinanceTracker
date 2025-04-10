@@ -103,7 +103,7 @@ private fun optionSection() {
 
         "v" -> {
             //TODO call view fun
-
+            transactionsManager.viewTransactions()
            //transactionsManager.getAllTransactions()
 
 
