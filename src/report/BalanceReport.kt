@@ -1,15 +1,15 @@
 package report
 
-import database.TransactionsDB
+import database.TransactionsManager
 import java.text.NumberFormat
 
-class BalanceReport (private val transactionsDB: TransactionsDB): Report{
+class BalanceReportImpl (private  val transactionsManager: TransactionsManager): Report{
     override fun generateReport(): String {
-        val totalIncome = transactionsDB.getTotalIncome()
+        val totalIncome = transactionsManager.getTotalIncome()
         val formattedIncome = NumberFormat.getCurrencyInstance().format(totalIncome)
-        val totalExpense = transactionsDB.getTotalExpenses()
+        val totalExpense = transactionsManager.getTotalExpenses()
         val formattedExpense = NumberFormat.getCurrencyInstance().format(totalExpense)
-        val netBalance = transactionsDB.getTotalIncome()
+        val netBalance = transactionsManager.getTotalIncome()
         val formattedBalance = NumberFormat.getCurrencyInstance().format(netBalance)
 
         return """
