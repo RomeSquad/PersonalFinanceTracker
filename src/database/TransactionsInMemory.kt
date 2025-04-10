@@ -7,7 +7,8 @@ class TransactionsInMemory : TransactionsManager {
     val transactions = mutableListOf<Transaction>()
 
     override fun addTransaction(transaction: Transaction) { //TODO : Zinah
-        TODO("Not yet implemented")
+
+        transactions.add(addTransaction)
     }
 
     override fun deleteTransaction(transaction: Transaction) {

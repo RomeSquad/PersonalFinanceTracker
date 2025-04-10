@@ -6,6 +6,7 @@ import java.time.LocalDate
 
 fun main() {
     checkDeleteTransction()
+
 }
 
 
@@ -43,4 +44,6 @@ class User(val transactions: MutableList<Transaction>) {
 
         transactions.remove(transaction)
     }
+
+
 }
