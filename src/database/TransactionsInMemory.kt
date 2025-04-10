@@ -14,12 +14,23 @@ class TransactionsInMemory : TransactionsManager {
         transactions.remove(transaction)
     }
 
-    override fun getTransaction(transactionId: String): Transaction? { //TODO : Mo Ramadan
-        TODO("Not yet implemented")
+    override fun getTransaction(transaction: Transaction) {
+        val searchedTransaction = transactions.find { it.id == transaction.id }
+        if (searchedTransaction != null) {
+            viewTransaction(searchedTransaction)
+        } else {
+            println("Transaction not found for this ID")
+        }
     }
 
-    override fun getAllTransactions(): List<Transaction> {//TODO : Mo Ramadan
-        TODO("Not yet implemented")
+    override fun getAllTransactions(transactions: List<Transaction>) {
+        if (transactions.isEmpty()) {
+            println("No transactions found. \nTo add a new transaction, please go to the main menu and select 'Add'.")
+        } else {
+            transactions.forEach { transaction ->
+                viewTransaction(transaction)
+            }
+        }
     }
 
     override fun editTransaction(transaction: Transaction) {//TODO : Abanoub
@@ -36,5 +47,18 @@ class TransactionsInMemory : TransactionsManager {
 
     override fun getTotalExpenses(): Double {
         TODO("Not yet implemented")
+    }
+
+    private fun viewTransaction(transaction: Transaction) {
+        println("====================")
+        println(
+            """
+            ID: ${transaction.id}
+            Amount: ${transaction.amount}
+            Category: ${transaction.category}
+            Date: ${transaction.date}
+            """
+        )
+        println("====================")
     }
 }
