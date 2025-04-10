@@ -1,5 +1,5 @@
 package report
 
-interface Report {
+interface report {
     fun generateReport(): String
 }

@@ -1,10 +1,9 @@
 package report
 
 import database.TransactionsDB
-import entity.Transaction
 
 
-class MonthlySummaryReport(val dataBase: TransactionsDB) : Report {
+class MonthlySummaryReport(private val dataBase: TransactionsDB) : report {
     override fun generateReport(): String {
         val data = dataBase.getTransctions()
 

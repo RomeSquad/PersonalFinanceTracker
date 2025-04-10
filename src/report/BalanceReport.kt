@@ -3,7 +3,7 @@ package report
 import database.TransactionsDB
 import java.text.NumberFormat
 
-class BalanceReport (private val transactionsDB: TransactionsDB): Report{
+class BalanceReport (private val transactionsDB: TransactionsDB): report{
     override fun generateReport(): String {
         val totalIncome = transactionsDB.getTotalIncome()
         val formattedIncome = NumberFormat.getCurrencyInstance().format(totalIncome)
