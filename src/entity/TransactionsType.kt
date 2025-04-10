@@ -1,6 +1,6 @@
 package entity
 
-enum class TransactionsCategoryType {
+enum class TransactionsType {
     INCOME,
     EXPENSES,
 }
