@@ -12,6 +12,10 @@ class TransactionsInJsonSerialization: TransactionsManager {
         TODO("Not yet implemented")
     }
 
+    override fun viewTransactions() {
+        TODO("Not yet implemented")
+    }
+
 
     override fun getAllTransactions(): List<Transaction> {
         TODO("Not yet implemented")

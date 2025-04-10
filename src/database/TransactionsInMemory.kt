@@ -32,7 +32,6 @@ class TransactionsInMemory : TransactionsManager {
 //    }
 
     override fun getAllTransactions(): List<Transaction> {
-
         return transactions
     }
 
@@ -53,7 +52,17 @@ class TransactionsInMemory : TransactionsManager {
         return transactions.filter { it.transactionsType == TransactionsType.EXPENSES }.map { it.amount }.sum()
     }
 
-    private fun viewTransaction(transaction: Transaction) {
+    override fun viewTransactions() {
+        if (transactions.isEmpty()) {
+            println("No transactions found. \nTo add a new transaction, please go to the main menu and select 'Add'.")
+        } else {
+            transactions.forEach { transaction ->
+                printTransaction(transaction)
+            }
+        }
+    }
+
+    private fun printTransaction(transaction: Transaction) {
         println("====================")
         println(
             """
