@@ -1,17 +1,18 @@
 import java.time.LocalDate
+
 // Define test cases for valid and invalid transactions
 fun main() {
 
     val invalidTransaction = Transaction(
         amount = -50.0,
         category = "",
-        date = LocalDate.now().plusDays(2)
+        type = TransactionType.EXPENSE,
     )
 
     val transaction = Transaction(
         amount = 100.0,
         category = "Salary",
-        date = LocalDate.now()
+        type = TransactionType.INCOME
     )
 
     check(
