@@ -3,7 +3,9 @@ package ui
 import database.TransactionsInMemory
 import database.TransactionsManager
 import entity.Transaction
+import report.BalanceReportImpl
 import report.MonthlySummaryReport
+import report.Report
 import java.time.LocalDate
 import java.time.Month
 
@@ -30,6 +32,7 @@ private fun optionSection() {
 
 
     val transactionsManager: TransactionsManager = TransactionsInMemory()
+    val balanceReport : Report = BalanceReportImpl(transactionsManager)
 
     when (option) {
         "a" -> {
@@ -124,9 +127,8 @@ private fun optionSection() {
         }
 
         "r" -> {
-            // TODO call balance report fun
-            //
-
+            val report = balanceReport.generateReport()
+            print(report)
         }
 
         "q" -> {
