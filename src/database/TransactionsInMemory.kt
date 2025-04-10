@@ -16,27 +16,24 @@ class TransactionsInMemory : TransactionsManager {
         transactions.remove(transactions.find { it.id == transactionID })
     }
 
-    override fun deleteTransaction(transaction: Transaction) {
+    fun deleteTransaction(transaction: Transaction) {
         transactions.remove(transaction)
     }
 
-    override fun getTransaction(transaction: Transaction) {
-        val searchedTransaction = transactions.find { it.id == transaction.id }
-        if (searchedTransaction != null) {
-            viewTransaction(searchedTransaction)
-        } else {
-            println("Transaction not found for this ID")
-        }
-    }
 
-    override fun getAllTransactions(transactions: List<Transaction>) {
-        if (transactions.isEmpty()) {
-            println("No transactions found. \nTo add a new transaction, please go to the main menu and select 'Add'.")
-        } else {
-            transactions.forEach { transaction ->
-                viewTransaction(transaction)
-            }
-        }
+//    override fun getAllTransactions() : List<Tra> {
+//        if (transactions.isEmpty()) {
+//            println("No transactions found. \nTo add a new transaction, please go to the main menu and select 'Add'.")
+//        } else {
+//            transactions.forEach { transaction ->
+//                viewTransaction(transaction)
+//            }
+//        }
+//    }
+
+    override fun getAllTransactions(): List<Transaction> {
+
+        return transactions
     }
 
     override fun editTransaction(transaction: Transaction) {//TODO : Abanoub
@@ -44,7 +41,8 @@ class TransactionsInMemory : TransactionsManager {
     }
 
     override fun getTotalBalance(): Double {
-        return transactions.map{if(it.transactionsType == TransactionsType.INCOME) it.amount else it.amount.unaryMinus() }.sum()
+        return transactions.map { if (it.transactionsType == TransactionsType.INCOME) it.amount else it.amount.unaryMinus() }
+            .sum()
     }
 
     override fun getTotalIncome(): Double {
