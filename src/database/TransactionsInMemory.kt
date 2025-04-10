@@ -1,6 +1,7 @@
 package database
 
 import entity.Transaction
+import entity.TransactionsType
 import java.util.UUID
 
 
@@ -32,14 +33,14 @@ class TransactionsInMemory : TransactionsManager {
     }
 
     override fun getTotalBalance(): Double {
-        TODO("Not yet implemented")
+        return transactions.map{if(it.transactionsType == TransactionsType.INCOME) it.amount else it.amount.unaryMinus() }.sum()
     }
 
     override fun getTotalIncome(): Double {
-        TODO("Not yet implemented")
+        return transactions.filter { it.transactionsType == TransactionsType.INCOME }.map { it.amount }.sum()
     }
 
     override fun getTotalExpenses(): Double {
-        TODO("Not yet implemented")
+        return transactions.filter { it.transactionsType == TransactionsType.EXPENSES }.map { it.amount }.sum()
     }
 }
