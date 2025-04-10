@@ -1,5 +1,7 @@
+package test
+
+import entity.Transaction
 import java.time.LocalDate
-// Define test cases for valid and invalid transactions
 fun main() {
 
     val invalidTransaction = Transaction(

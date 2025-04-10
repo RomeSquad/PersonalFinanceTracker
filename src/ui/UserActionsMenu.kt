@@ -1,10 +1,8 @@
-package core
+package ui
 
 fun userActionsMenu() {
-
     welcomeSection()
     optionSection()
-
 }
 
 private fun optionSection() {

@@ -1,7 +1,6 @@
-import core.userActionsMenu
+import ui.userActionsMenu
 
 fun main() {
-
     userActionsMenu()
 }
 
