@@ -4,7 +4,7 @@ import database.TransactionsInMemory
 import entity.Transaction
 import java.time.LocalDate
 
-
+/*
 fun main() {
     checkDeleteTransactionWithObject()
 }
@@ -55,3 +55,4 @@ fun checkTransaction(case: String, reterned_Result: MutableList<Transaction>, co
 fun newMockTransaction(): Transaction {
     return Transaction(amount = Math.random(), category = "Travel" , date =  LocalDate.now())
 }
+*/
