@@ -9,6 +9,23 @@ fun main() {
     checkDeleteTransactionWithObject()
 }
 
+fun checkDeleteTransactionWithId(){
+    val transactionToDelete = newMockTransaction()
+
+    val inMemory = TransactionsInMemory()
+
+    inMemory.addTransaction(newMockTransaction())
+    inMemory.addTransaction(transactionToDelete)
+    inMemory.deleteTransaction(transactionToDelete.id)
+
+    if(inMemory.transactions.contains(transactionToDelete)){
+        println("failed_ transaction with id = $transactionToDelete wasn't deleted")
+    }
+    else {
+        println("success_ transaction is deleted with id")
+    }
+}
+
 fun checkDeleteTransactionWithObject() {
 
     val myTransaction = mutableListOf(
@@ -27,11 +44,14 @@ fun checkDeleteTransactionWithObject() {
     )
 }
 
-
 fun checkTransaction(case: String, reterned_Result: MutableList<Transaction>, correctResult: MutableList<Transaction>) {
     if (reterned_Result == correctResult) {
         println("success_ ")
     } else {
         println("failed_ ")
     }
+}
+
+fun newMockTransaction(): Transaction {
+    return Transaction(amount = Math.random(), category = "Travel" , date =  LocalDate.now())
 }
