@@ -1,31 +1,30 @@
 package test
 
+import database.TransactionsInMemory
 import entity.Transaction
 import java.time.LocalDate
 
 
 fun main() {
-    checkDeleteTransction()
+    checkDeleteTransactionWithObject()
 }
 
+fun checkDeleteTransactionWithObject() {
 
-fun checkDeleteTransction() {
-
-
-    var myTransaction = mutableListOf(
+    val myTransaction = mutableListOf(
         Transaction(amount = 100.0, category = "Travel", date = LocalDate.of(2030, 12, 20))
     )
 
-    val user1 = User(
-        mutableListOf(
-            Transaction(amount = 100.0, category = "Travel", date = LocalDate.of(2000, 11, 20)),
-            Transaction(amount = 100.0, category = "Travel", date = LocalDate.of(2030, 12, 20))
-        )
+    val inMemory = TransactionsInMemory()
+    inMemory.addTransaction(Transaction(amount = 100.0, category = "Travel", date = LocalDate.of(2000, 11, 20)))
+    inMemory.addTransaction(Transaction(amount = 100.0, category = "Travel", date = LocalDate.of(2030, 12, 20)))
+
+    inMemory.deleteTransaction(Transaction(amount = 100.0, category = "Travel", date = LocalDate.of(2000, 11, 20)))
+    checkTransaction(
+        case = "transaction DELETED with transaction object",
+        reterned_Result = inMemory.transactions,
+        correctResult = myTransaction
     )
-
-    user1.deleteTransaction(Transaction(amount = 100.0, category = "Travel", date = LocalDate.of(2000, 11, 20)))
-    checkTransaction(case = "transaction DELETED ", reterned_Result = user1.transactions, correctResult = myTransaction)
-
 }
 
 
@@ -34,13 +33,5 @@ fun checkTransaction(case: String, reterned_Result: MutableList<Transaction>, co
         println("success_ ")
     } else {
         println("failed_ ")
-    }
-}
-
-class User(val transactions: MutableList<Transaction>) {
-
-    fun deleteTransaction(transaction: Transaction) {
-
-        transactions.remove(transaction)
     }
 }
