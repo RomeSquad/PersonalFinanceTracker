@@ -1,4 +1,4 @@
-package action
+package manager
 
 interface UserActions {
 }
