@@ -5,7 +5,9 @@ import database.TransactionsManager
 import entity.Categories
 import entity.Transaction
 import entity.TransactionsType
+import report.BalanceReportImpl
 import report.MonthlySummaryReport
+import report.Report
 import java.time.LocalDate
 import java.time.Month
 import java.time.format.DateTimeFormatter
@@ -33,6 +35,7 @@ private fun optionSection() {
 
 
     val transactionsManager: TransactionsManager = TransactionsInMemory()
+    val balanceReport :Report = BalanceReportImpl(transactionsManager)
 
     when (option) {
         "a" -> {
@@ -113,7 +116,8 @@ private fun optionSection() {
         }
 
         "r" -> {
-            // TODO call balance report fun
+            val  report = balanceReport.generateReport()
+            println(report)
         }
 
         "q" -> {
