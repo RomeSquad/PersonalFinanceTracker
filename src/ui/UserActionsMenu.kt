@@ -2,7 +2,8 @@ package ui
 
 import database.TransactionsInMemory
 import database.TransactionsManager
-import entity.Categories
+import entity.ExpensesCategories
+import entity.IncomeCategories
 import entity.Transaction
 import entity.TransactionsType
 import report.BalanceReportImpl
@@ -46,24 +47,39 @@ private fun optionSection() {
             print("enter amount :")
             val amount: Double = readln().toDouble()
 
-            print("enter category :")
-            val category = Categories.valueOf(readln())
-
             print("enter type : ")
-            val type = TransactionsType.valueOf(readln())
+            val type:TransactionsType = TransactionsType.valueOf(readln())
 
-            print("enter date (yyyy-mm-dd) : ")
-            val date = LocalDate.parse(readln(), DateTimeFormatter.ISO_DATE)
+
+            print("enter category :")
+            when(type){
+                TransactionsType.INCOME ->  {
+                    IncomeCategories.entries.forEach{
+                        it.categoryName
+                    }
+                    println(IncomeCategories.entries)
+                    IncomeCategories.valueOf(readln())
+                }
+                TransactionsType.EXPENSES -> {
+                    println(IncomeCategories.entries)
+                    ExpensesCategories.valueOf(readln())
+                }
+            }
 
 
 //            transactionsManager.addTransaction(
 //                Transaction(
 //                    amount = amount,
-//                    category = category,
+//                    category = IncomeCategories.OTHER,
 //                    transactionsType = type,
-//                    date = date
+//
 //                )
 //            )
+//            print("enter date (yyyy-mm-dd) : ")
+//            val date = LocalDate.parse(readln(), DateTimeFormatter.ISO_DATE)
+
+
+
         }
 
         "e" -> {
@@ -76,11 +92,21 @@ private fun optionSection() {
             print("enter amount :")
             val amount: Double = readln().toDouble()
 
-            print("enter category :")
-            val category = Categories.valueOf(readln())
-
             print("enter type : ")
-            val type = TransactionsType.valueOf(readln())
+            val type:TransactionsType = TransactionsType.valueOf(readln())
+
+
+            print("enter category :")
+            when(type){
+                TransactionsType.INCOME ->  {
+                    println(IncomeCategories.entries)
+                    IncomeCategories.valueOf(readln())
+                }
+                TransactionsType.EXPENSES -> {
+                    println(IncomeCategories.entries)
+                    ExpensesCategories.valueOf(readln())
+                }
+            }
 
             print("enter date (yyyy-mm-dd) : ")
             val date = LocalDate.parse(readln(), DateTimeFormatter.ISO_DATE)
