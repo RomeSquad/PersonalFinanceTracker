@@ -8,7 +8,7 @@ interface TransactionsManager {
     fun deleteTransaction(transactionID: UUID):Boolean
     fun viewTransactions()
     fun getAllTransactions() :List<Transaction>
-    fun editTransaction(transaction: Transaction)
+    fun editTransaction(transaction: Transaction): Boolean
 
     fun getTotalBalance(): Double
     fun getTotalIncome(): Double

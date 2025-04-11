@@ -35,9 +35,16 @@ class TransactionsInMemory : TransactionsManager {
         return transactions
     }
 
-    override fun editTransaction(transaction: Transaction) {//TODO : Abanoub
-        TODO("Not yet implemented")
+    override fun editTransaction(transaction: Transaction): Boolean {
+        val index = transactions.indexOfFirst { it.id == transaction.id }
+        return if (index != -1) {
+            transactions[index] = transaction
+            true
+        } else {
+            false
+        }
     }
+
 
     override fun getTotalBalance(): Double {
         return transactions.map { if (it.transactionsType == TransactionsType.INCOME) it.amount else it.amount.unaryMinus() }
