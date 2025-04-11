@@ -9,9 +9,7 @@ import entity.TransactionsType
 import report.BalanceReportImpl
 import report.MonthlySummaryReport
 import report.Report
-import java.time.LocalDate
-import java.time.Month
-import java.time.format.DateTimeFormatter
+import java.util.*
 
 fun userActionsMenu() {
     welcomeSection()
@@ -19,142 +17,133 @@ fun userActionsMenu() {
 }
 
 private fun optionSection() {
-    println("************* ")
-    println("you have many options to choice")
-    println("************* ")
-
-    println("Add Transaction ->  press letter ( a ) ")
-    println("Edit Transaction -> press letter ( e )")
-    println("View Transaction -> press letter ( v )  ")
-    println("Delete Transaction ->  press letter ( d ) ")
-    println("Show your monthly summary report ->  press letter ( m ) ")
-    println("Show your balance report ->  press letter ( r )  ")
-    println("Exit the app ->  press letter ( q ) ")
-
-    print("what do you want : ")
-    val option: String = readln()
-
-
     val transactionsManager: TransactionsManager = TransactionsInMemory()
-    val balanceReport :Report = BalanceReportImpl(transactionsManager)
+    val balanceReport: Report = BalanceReportImpl(transactionsManager)
+    val monthlySummaryReport: Report = MonthlySummaryReport(transactionsManager)
+    while (true) {
+        println("************* ")
+        println("you have many options to choice")
+        println("************* ")
 
-    when (option) {
-        "a" -> {
+        println("Add Transaction ->  press letter ( a ) ")
+        println("Edit Transaction -> press letter ( e )")
+        println("View Transaction -> press letter ( v )  ")
+        println("Delete Transaction ->  press letter ( d ) ")
+        println("Show your monthly summary report ->  press letter ( m ) ")
+        println("Show your balance report ->  press letter ( r )  ")
+        println("Exit the app ->  press letter ( q ) ")
 
+        print("what do you want : ")
+        val option: String = readln()
+        val input = option.toLowerCase()
+        when (input) {
+            "a" -> {
+                println("add transaction ")
 
-            println("add transaction ")
+                print("enter amount :")
+                val amount: Double = readln().toDouble()
 
-            print("enter amount :")
-            val amount: Double = readln().toDouble()
+                print("enter type : ")
+                val type: TransactionsType = TransactionsType.valueOf(readln())
 
-            print("enter type : ")
-            val type:TransactionsType = TransactionsType.valueOf(readln())
-
-
-            print("enter category :")
-            when(type){
-                TransactionsType.INCOME ->  {
-                    IncomeCategories.entries.forEach{
-                        it.categoryName
+                print("enter category :")
+                val category = when (type) {
+                    TransactionsType.INCOME -> {
+                        IncomeCategories.entries.forEach {
+                            it.categoryName
+                        }
+                        println(IncomeCategories.entries)
+                        IncomeCategories.valueOf(readln())
                     }
-                    println(IncomeCategories.entries)
-                    IncomeCategories.valueOf(readln())
+
+                    TransactionsType.EXPENSES -> {
+                        println(ExpensesCategories.entries)
+                        ExpensesCategories.valueOf(readln())
+                    }
                 }
-                TransactionsType.EXPENSES -> {
-                    println(IncomeCategories.entries)
-                    ExpensesCategories.valueOf(readln())
-                }
+
+                transactionsManager.addTransaction(
+                    Transaction(
+                        amount = amount,
+                        category = category,
+                        transactionsType = type
+                    )
+                )
             }
 
+            "e" -> {
+                println("edit transaction ")
+                print("enter id ")
+                val input = readln()
+                val uuid = UUID.fromString(input)
 
-//            transactionsManager.addTransaction(
-//                Transaction(
-//                    amount = amount,
-//                    category = IncomeCategories.OTHER,
-//                    transactionsType = type,
-//
-//                )
-//            )
-//            print("enter date (yyyy-mm-dd) : ")
-//            val date = LocalDate.parse(readln(), DateTimeFormatter.ISO_DATE)
+                print("enter amount :")
+                val amount: Double = readln().toDouble()
 
-
-
-        }
-
-        "e" -> {
+                print("enter type : ")
+                val type: TransactionsType = TransactionsType.valueOf(readln())
 
 
-            println("edit transaction ")
-            print("enter id ")
-            val id = readln()
+                val category = when (type) {
+                    TransactionsType.INCOME -> {
+                        IncomeCategories.entries.forEach {
+                            it.categoryName
+                        }
+                        println(IncomeCategories.entries)
+                        IncomeCategories.valueOf(readln())
+                    }
 
-            print("enter amount :")
-            val amount: Double = readln().toDouble()
-
-            print("enter type : ")
-            val type:TransactionsType = TransactionsType.valueOf(readln())
-
-
-            print("enter category :")
-            when(type){
-                TransactionsType.INCOME ->  {
-                    println(IncomeCategories.entries)
-                    IncomeCategories.valueOf(readln())
+                    TransactionsType.EXPENSES -> {
+                        println(ExpensesCategories.entries)
+                        ExpensesCategories.valueOf(readln())
+                    }
                 }
-                TransactionsType.EXPENSES -> {
-                    println(IncomeCategories.entries)
-                    ExpensesCategories.valueOf(readln())
-                }
+
+                transactionsManager.editTransaction(
+                    Transaction(
+                        amount = amount,
+                        category = category,
+                        transactionsType = type,
+                        id = uuid
+                    )
+                )
             }
 
-            print("enter date (yyyy-mm-dd) : ")
-            val date = LocalDate.parse(readln(), DateTimeFormatter.ISO_DATE)
+            "v" -> {
+                transactionsManager.viewTransactions()
 
+            }
 
-//            transactionsManager.editTransaction(
-//                Transaction(
-//                    amount = amount,
-//                    category = category,
-//                    transactionsType = type,
-//                    date = date
-//                )
-//            )
+            "d" -> {
+                println("delete transaction")
+                val input = readln()
+                val uuid = UUID.fromString(input)
+                transactionsManager.deleteTransaction(uuid)
+            }
+
+            "m" -> {
+                val report = monthlySummaryReport.generateReport()
+                println(report)
+
+            }
+
+            "r" -> {
+                val report = balanceReport.generateReport()
+                println(report)
+            }
+
+            "q" -> {
+                println("Thanks")
+                break
+            }
+
+            else -> {
+                println("Invalid Option")
+            }
 
         }
-
-        "v" -> {
-            transactionsManager.viewTransactions()
-
-        }
-
-        "d" -> {
-            // TODO call delete fun
-            // print("enter now type :")
-            // val id = readln()
-            // transactionsManager.deleteTransaction(id)
-        }
-
-        "m" -> {
-            // TODO call monthly report fun
-            // MonthlySummaryReport(transactionsManager)
-
-        }
-
-        "r" -> {
-            val  report = balanceReport.generateReport()
-            println(report)
-        }
-
-        "q" -> {
-            println("Thanks")
-        }
-
-        else -> {
-            println("Invalid Option")
-        }
-
     }
+
 }
 
 private fun welcomeSection() {
