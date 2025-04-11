@@ -1,6 +1,6 @@
 package test.managerActionTest
 
-import entity.Categories
+import entity.TransactionsType
 import test.Validator
 
 fun editTransactionTestCases() {
@@ -30,7 +30,9 @@ fun editTransactionTestCases() {
     //region Invalid Cases for category Field
     test.check(
         name = "when enter an input with just characters return true",
-        expectedResult = Validator.isValidCategory(Categories.FOOD.name),
+        expectedResult = Validator.isValidCategory(
+            TransactionsType.EXPENSES.name
+        ),
         correctResult = true
     )
     test.check(
