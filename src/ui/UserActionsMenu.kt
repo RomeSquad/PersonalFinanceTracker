@@ -1,11 +1,7 @@
 package ui
 
-import database.TransactionsInMemory
 import database.TransactionsManager
-import entity.ExpensesCategories
-import entity.IncomeCategories
-import entity.Transaction
-import entity.TransactionsType
+import entity.*
 import report.BalanceReportImpl
 import report.MonthlySummaryReport
 import report.Report
@@ -88,16 +84,15 @@ What do you want :
         print("Enter Category :")
         val category = when (type) {
             TransactionsType.INCOME -> {
-                IncomeCategories.entries.forEach {
-                    it.categoryName
-                }
                 println(IncomeCategories.entries)
-                IncomeCategories.valueOf(readln())
+                val incomeCategory =  IncomeCategories.valueOf(readln())
+                Category.Income(incomeCategory)
             }
 
             TransactionsType.EXPENSES -> {
                 println(ExpensesCategories.entries)
-                ExpensesCategories.valueOf(readln())
+                val expensesCategory =  ExpensesCategories.valueOf(readln())
+                Category.Expenses(expensesCategory)
             }
         }
 
@@ -123,16 +118,15 @@ What do you want :
         print("Enter Category :")
         val category = when (type) {
             TransactionsType.INCOME -> {
-                IncomeCategories.entries.forEach {
-                    it.categoryName
-                }
                 println(IncomeCategories.entries)
-                IncomeCategories.valueOf(readln())
+                val incomeCategory =  IncomeCategories.valueOf(readln())
+                Category.Income(incomeCategory)
             }
 
             TransactionsType.EXPENSES -> {
                 println(ExpensesCategories.entries)
-                ExpensesCategories.valueOf(readln())
+                val expensesCategory =  ExpensesCategories.valueOf(readln())
+                Category.Expenses(expensesCategory)
             }
         }
 
