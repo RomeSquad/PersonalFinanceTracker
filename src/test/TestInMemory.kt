@@ -1,18 +1,18 @@
 package test
 
 import database.TransactionsInMemory
-import entity.Categories
+import entity.ExpensesCategories
 import entity.Transaction
 import entity.TransactionsType
 import java.time.LocalDate
 
 
-
 fun main() {
+    checkDeleteTransactionWithId()
     checkDeleteTransactionWithObject()
 }
 
-fun checkDeleteTransactionWithId(){
+fun checkDeleteTransactionWithId() {
     val transactionToDelete = newMockTransaction()
 
 
@@ -22,54 +22,59 @@ fun checkDeleteTransactionWithId(){
     inMemory.addTransaction(transactionToDelete)
     inMemory.deleteTransaction(transactionToDelete.id)
 
-    if(inMemory.transactions.contains(transactionToDelete)){
+    if (inMemory.transactions.contains(transactionToDelete)) {
         println("failed_ transaction with id = $transactionToDelete wasn't deleted")
-    }
-    else {
+    } else {
         println("success_ transaction is deleted with id")
     }
 }
 
 fun checkDeleteTransactionWithObject() {
 
+    val mockTransactionToDelete = newMockTransaction()
+    val mockTransactionToKeep = newMockTransaction()
+
     val myTransaction = mutableListOf(
-        Transaction(amount = 100.0,
-            category = Categories.SHOPPING ,
-            transactionsType = TransactionsType.EXPENSES,
-            date = LocalDate.of(2030, 12, 20))
+        mockTransactionToKeep
     )
 
     val inMemory = TransactionsInMemory()
-    inMemory.addTransaction(Transaction(amount = 100.0,
-        category =Categories.RENT
-        ,transactionsType =  TransactionsType.INCOME,
-        date = LocalDate.of(2000, 11, 20))
+    inMemory.addTransaction(
+        mockTransactionToDelete
     )
 
-    inMemory.addTransaction(Transaction(amount = 100.0,
-        category =Categories.TRAVEL,
-        transactionsType = TransactionsType.EXPENSES ,
-        date = LocalDate.of(20230, 12, 20)))
+    inMemory.addTransaction(
+        mockTransactionToKeep
+    )
 
-    inMemory.deleteTransaction(Transaction(amount = 100.0,
-        category = Categories.TRAVEL,
-        transactionsType = TransactionsType.EXPENSES,
-        date = LocalDate.of(2000, 11, 20)))
-    checkTransaction(
-        name = "transaction DELETED with transaction object",
-        expectedResult = inMemory.transactions,
-        correctResult = myTransaction
+    inMemory.deleteTransaction(
+        mockTransactionToDelete
+    )
+
+    println(inMemory.transactions)
+    println(myTransaction)
+    println(
+        check(
+            name = "transaction DELETED with transaction object",
+            expectedResult = inMemory.transactions,
+            correctResult = myTransaction
+        )
     )
 }
 
-fun checkTransaction(name: String, expectedResult: MutableList<Transaction>, correctResult: MutableList<Transaction>) {
-    if (expectedResult == correctResult) {
-        println("success_ ")
-    } else {
-        println("failed_ ")
-    }
-}
+//fun checkTransaction(name: String, expectedResult: MutableList<Transaction>, correctResult: MutableList<Transaction>) {
+//    if (expectedResult == correctResult) {
+//        println("success_ ")
+//    } else {
+//        println("failed_ ")
+//    }
+//}
 
 fun newMockTransaction(): Transaction {
-    return Transaction(amount = Math.random(), category =  Categories.TRAVEL, transactionsType =TransactionsType.EXPENSES , date =  LocalDate.now())
+    return Transaction(
+        amount = Math.random(),
+        category = ExpensesCategories.TRAVEL,
+        transactionsType = TransactionsType.EXPENSES,
+        date = LocalDate.now()
+    )
 }
