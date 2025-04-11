@@ -54,7 +54,8 @@ class TransactionsInMemory : TransactionsManager {
         if (transactions.isEmpty()) {
             println("No transactions found.")
         } else {
-            transactions.forEach { transaction ->
+            transactions.forEachIndexed { index ,transaction ->
+                println("Transaction Number : ${index+1}")
                 printTransaction(transaction)
             }
         }
