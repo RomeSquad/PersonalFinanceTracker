@@ -13,5 +13,7 @@ data class Transaction(
     override fun toString(): String {
         return "Transaction(id=$id, amount=$amount, category='$category', date=$date)"
     }
-
 }
+
+
+
