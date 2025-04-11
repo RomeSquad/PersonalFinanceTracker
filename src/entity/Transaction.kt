@@ -7,7 +7,7 @@ data class Transaction(
     val id: UUID = UUID.randomUUID(),
     val amount: Double,
     val transactionsType:TransactionsType, //TODO : Replace it with enum
-    val  category:Categories,
+    val  category:ICategory,
     val date: LocalDate= LocalDate.now(),
 ) {
     fun validAmount(): Boolean {

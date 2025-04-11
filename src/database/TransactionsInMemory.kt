@@ -2,7 +2,6 @@ package database
 
 import entity.Transaction
 import entity.TransactionsType
-import ui.printTransaction
 import java.util.UUID
 
 
@@ -68,5 +67,18 @@ class TransactionsInMemory : TransactionsManager {
                 printTransaction(transaction)
             }
         }
+    }
+
+    private fun printTransaction(transaction: Transaction) {
+        println("====================")
+        println(
+            """
+            ID: ${transaction.id}
+            Amount: ${transaction.amount}
+            Category: ${transaction.category}
+            Date: ${transaction.date}
+            """
+        )
+        println("====================")
     }
 }
