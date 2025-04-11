@@ -16,6 +16,16 @@ fun userActionsMenu() {
     optionSection()
 }
 
+private fun welcomeSection() {
+    println("************* ")
+    println("Welcome to your Finance Tracker App ")
+    println("************* ")
+
+    print("Please enter your name :  ")
+    val name: String = readln()
+    println("************* ")
+    println("Welcome $name ")
+}
 private fun optionSection() {
     val transactionsManager: TransactionsManager = TransactionsInMemory()
     val balanceReport: Report = BalanceReportImpl(transactionsManager)
@@ -116,8 +126,8 @@ private fun optionSection() {
 
             "d" -> {
                 println("delete transaction")
-                val input = readln()
-                val uuid = UUID.fromString(input)
+                val idInput = readln()
+                val uuid = UUID.fromString(idInput)
                 transactionsManager.deleteTransaction(uuid)
             }
 
@@ -146,13 +156,3 @@ private fun optionSection() {
 
 }
 
-private fun welcomeSection() {
-    println("************* ")
-    println("Welcome to your Finance Tracker App ")
-    println("************* ")
-
-    print("Please enter your name :  ")
-    val name: String = readln()
-    println("************* ")
-    println("Welcome $name ")
-}

@@ -2,6 +2,7 @@ package database
 
 import entity.Transaction
 import entity.TransactionsType
+import ui.printTransaction
 import java.util.UUID
 
 
@@ -12,7 +13,7 @@ class TransactionsInMemory : TransactionsManager {
         transactions.add(transaction)
     }
 
-    override fun deleteTransaction(transactionID: UUID):Boolean {
+    override fun deleteTransaction(transactionID: UUID): Boolean {
         return transactions.remove(transactions.find { it.id == transactionID })
     }
 
@@ -20,16 +21,6 @@ class TransactionsInMemory : TransactionsManager {
         transactions.remove(transaction)
     }
 
-
-//    override fun getAllTransactions() : List<Tra> {
-//        if (transactions.isEmpty()) {
-//            println("No transactions found. \nTo add a new transaction, please go to the main menu and select 'Add'.")
-//        } else {
-//            transactions.forEach { transaction ->
-//                viewTransaction(transaction)
-//            }
-//        }
-//    }
 
     override fun getAllTransactions(): List<Transaction> {
         return transactions
@@ -61,7 +52,7 @@ class TransactionsInMemory : TransactionsManager {
 
     override fun viewTransactions() {
         if (transactions.isEmpty()) {
-            println("No transactions found. To add a new transaction, please go to the main menu and select 'Add'.")
+            println("No transactions found.")
         } else {
             transactions.forEach { transaction ->
                 printTransaction(transaction)
@@ -69,16 +60,5 @@ class TransactionsInMemory : TransactionsManager {
         }
     }
 
-    private fun printTransaction(transaction: Transaction) {
-        println("====================")
-        println(
-            """
-            ID: ${transaction.id}
-            Amount: ${transaction.amount}
-            Category: ${transaction.category}
-            Date: ${transaction.date}
-            """
-        )
-        println("====================")
-    }
+
 }

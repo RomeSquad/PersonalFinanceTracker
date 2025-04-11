@@ -3,7 +3,7 @@ package database
 import entity.Transaction
 import java.util.*
 
-class TransactionsInJsonSerialization: TransactionsManager {
+class TransactionsInJsonSerialization : TransactionsManager {
     override fun addTransaction(transaction: Transaction) {
         TODO("Not yet implemented")
     }

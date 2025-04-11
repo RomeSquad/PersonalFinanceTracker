@@ -1,4 +1,4 @@
-package test
+package test.managerActionTest
 
 import database.TransactionsInMemory
 import entity.ExpensesCategories
@@ -54,7 +54,7 @@ fun checkDeleteTransactionWithObject() {
     println(inMemory.transactions)
     println(myTransaction)
     println(
-        check(
+        test.check(
             name = "transaction DELETED with transaction object",
             expectedResult = inMemory.transactions,
             correctResult = myTransaction
@@ -62,13 +62,6 @@ fun checkDeleteTransactionWithObject() {
     )
 }
 
-//fun checkTransaction(name: String, expectedResult: MutableList<Transaction>, correctResult: MutableList<Transaction>) {
-//    if (expectedResult == correctResult) {
-//        println("success_ ")
-//    } else {
-//        println("failed_ ")
-//    }
-//}
 
 fun newMockTransaction(): Transaction {
     return Transaction(

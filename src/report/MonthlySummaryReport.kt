@@ -5,7 +5,7 @@ import database.TransactionsManager
 
 class MonthlySummaryReport(private val transactionsManager: TransactionsManager) : Report {
     override fun generateReport(): String {
-        val data  = transactionsManager.getAllTransactions()
+        val data = transactionsManager.getAllTransactions()
 
         if (data.isEmpty()) {
             return "No transactions found"
