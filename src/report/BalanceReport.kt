@@ -1,4 +1,4 @@
-package feature.report
+package report
 
 import database.TransactionsManager
 import java.text.NumberFormat
