@@ -8,7 +8,7 @@ fun printTransaction(transaction: Transaction) {
         """
             ID: ${transaction.id}
             Amount: ${transaction.amount}
-            Category: ${transaction.category}
+            Category: ${transaction.ICategory.categoryName}
             Date: ${transaction.date}
             """
     )
