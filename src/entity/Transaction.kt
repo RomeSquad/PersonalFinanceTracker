@@ -8,7 +8,7 @@ data class Transaction(
     val amount: Double,
     val transactionsType:TransactionsType, //TODO : Replace it with enum
     val  category:Categories,
-    val date: LocalDate,
+    val date: LocalDate= LocalDate.now(),
 ) {
     fun validAmount(): Boolean {
         val result = amount > 0
