@@ -1,4 +1,4 @@
-package report
+package feature.report
 
 import database.TransactionsManager
 
