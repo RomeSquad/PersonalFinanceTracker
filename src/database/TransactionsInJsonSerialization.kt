@@ -2,7 +2,7 @@ package database
 
 import entity.Transaction
 
-class TransactionsInJsonSerialization: TransactionsManager {
+class TransactionsInJsonSerialization : TransactionsManager {
 
     override fun addTransaction(transaction: Transaction) {
         TODO("Not yet implemented")
