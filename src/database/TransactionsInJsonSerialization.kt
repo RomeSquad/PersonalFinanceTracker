@@ -21,7 +21,7 @@ class TransactionsInJsonSerialization: TransactionsManager {
         TODO("Not yet implemented")
     }
 
-    override fun editTransaction(transaction: Transaction) {
+    override fun editTransaction(transaction: Transaction): Boolean {
         TODO("Not yet implemented")
     }
 
