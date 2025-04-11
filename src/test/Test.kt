@@ -1,6 +1,6 @@
 package test
 
-fun <T> check(
+public fun <T> check(
     name: String,
     expectedResult: T,
     correctResult: T,

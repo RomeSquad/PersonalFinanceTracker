@@ -12,8 +12,8 @@ class TransactionsInMemory : TransactionsManager {
         transactions.add(transaction)
     }
 
-    override fun deleteTransaction(transactionID: UUID) {
-        transactions.remove(transactions.find { it.id == transactionID })
+    override fun deleteTransaction(transactionID: UUID):Boolean {
+        return transactions.remove(transactions.find { it.id == transactionID })
     }
 
     fun deleteTransaction(transaction: Transaction) {

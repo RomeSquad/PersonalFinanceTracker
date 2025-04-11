@@ -8,7 +8,7 @@ class TransactionsInJsonSerialization: TransactionsManager {
         TODO("Not yet implemented")
     }
 
-    override fun deleteTransaction(transactionID: UUID) {
+    override fun deleteTransaction(transactionID: UUID): Boolean {
         TODO("Not yet implemented")
     }
 
