@@ -9,8 +9,8 @@ import java.util.UUID
 class TransactionsInMemory : TransactionsManager {
     val transactions = mutableListOf<Transaction>()
 
-    override fun addTransaction(transaction: Transaction) { //TODO : Zinah
-        TODO("Not yet implemented")
+    override fun addTransaction(transaction: Transaction) {
+        transactions.add(transaction)
     }
 
     override fun deleteTransaction(transactionID: UUID) {
