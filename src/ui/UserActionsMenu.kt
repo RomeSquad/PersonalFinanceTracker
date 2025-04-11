@@ -1,13 +1,10 @@
 package ui
 
 import database.TransactionsManager
-import entity.ExpensesCategories
-import entity.IncomeCategories
-import entity.Transaction
-import entity.TransactionsType
-import feature.report.BalanceReportImpl
-import feature.report.MonthlySummaryReport
-import feature.report.Report
+import entity.*
+import report.BalanceReportImpl
+import report.MonthlySummaryReport
+import report.Report
 import java.util.*
 
 
@@ -69,8 +66,8 @@ Add Transaction ->  press letter ( a )
 Edit Transaction -> press letter ( e )
 View Transaction -> press letter ( v )
 Delete Transaction ->  press letter ( d )
-Show your monthly summary feature.report ->  press letter ( m )
-Show your balance feature.report ->  press letter ( r ) 
+Show your monthly summary report ->  press letter ( m )
+Show your balance report ->  press letter ( r ) 
 Exit the app ->  press letter ( q )
 What do you want : 
 """)
@@ -87,16 +84,15 @@ What do you want :
         print("Enter Category :")
         val category = when (type) {
             TransactionsType.INCOME -> {
-                IncomeCategories.entries.forEach {
-                    it.categoryName
-                }
                 println(IncomeCategories.entries)
-                IncomeCategories.valueOf(readln())
+                val incomeCategory =  IncomeCategories.valueOf(readln())
+                Category.Income(incomeCategory)
             }
 
             TransactionsType.EXPENSES -> {
                 println(ExpensesCategories.entries)
-                ExpensesCategories.valueOf(readln())
+                val expensesCategory =  ExpensesCategories.valueOf(readln())
+                Category.Expenses(expensesCategory)
             }
         }
 
@@ -122,16 +118,15 @@ What do you want :
         print("Enter Category :")
         val category = when (type) {
             TransactionsType.INCOME -> {
-                IncomeCategories.entries.forEach {
-                    it.categoryName
-                }
                 println(IncomeCategories.entries)
-                IncomeCategories.valueOf(readln())
+                val incomeCategory =  IncomeCategories.valueOf(readln())
+                Category.Income(incomeCategory)
             }
 
             TransactionsType.EXPENSES -> {
                 println(ExpensesCategories.entries)
-                ExpensesCategories.valueOf(readln())
+                val expensesCategory =  ExpensesCategories.valueOf(readln())
+                Category.Expenses(expensesCategory)
             }
         }
 

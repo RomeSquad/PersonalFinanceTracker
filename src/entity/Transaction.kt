@@ -7,7 +7,7 @@ data class Transaction(
     val id: UUID = UUID.randomUUID(),
     val amount: Double,
     val transactionsType: TransactionsType,
-    val category: ICategory,
+    val category: Category,
     val date: LocalDate = LocalDate.now(),
 ) {
     override fun toString(): String {
