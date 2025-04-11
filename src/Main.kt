@@ -1,7 +1,10 @@
-import ui.userActionsMenu
+import database.TransactionsInMemory
+import ui.UserActionsMenu
 
 fun main() {
-    userActionsMenu()
+    val memory = TransactionsInMemory()
+    val app = UserActionsMenu(memory)
+    app.run()
 }
 
 

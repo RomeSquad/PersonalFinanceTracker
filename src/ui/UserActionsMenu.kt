@@ -11,148 +11,177 @@ import report.MonthlySummaryReport
 import report.Report
 import java.util.*
 
-fun userActionsMenu() {
-    welcomeSection()
-    optionSection()
-}
 
-private fun welcomeSection() {
-    println("************* ")
-    println("Welcome to your Finance Tracker App ")
-    println("************* ")
+class UserActionsMenu(private val transactionsManager: TransactionsManager) {
 
-    print("Please enter your name :  ")
-    val name: String = readln()
-    println("************* ")
-    println("Welcome $name ")
-}
-private fun optionSection() {
-    val transactionsManager: TransactionsManager = TransactionsInMemory()
-    val balanceReport: Report = BalanceReportImpl(transactionsManager)
-    val monthlySummaryReport: Report = MonthlySummaryReport(transactionsManager)
-    while (true) {
-        println("************* ")
-        println("you have many options to choice")
-        println("************* ")
-
-        println("Add Transaction ->  press letter ( a ) ")
-        println("Edit Transaction -> press letter ( e )")
-        println("View Transaction -> press letter ( v )  ")
-        println("Delete Transaction ->  press letter ( d ) ")
-        println("Show your monthly summary report ->  press letter ( m ) ")
-        println("Show your balance report ->  press letter ( r )  ")
-        println("Exit the app ->  press letter ( q ) ")
-
-        print("what do you want : ")
-        val option: String = readln()
-        val input = option.toLowerCase()
-        when (input) {
-            "a" -> {
-                println("add transaction ")
-
-                print("enter amount :")
-                val amount: Double = readln().toDouble()
-
-                print("enter type : ")
-                val type: TransactionsType = TransactionsType.valueOf(readln())
-
-                print("enter category :")
-                val category = when (type) {
-                    TransactionsType.INCOME -> {
-                        IncomeCategories.entries.forEach {
-                            it.categoryName
-                        }
-                        println(IncomeCategories.entries)
-                        IncomeCategories.valueOf(readln())
-                    }
-
-                    TransactionsType.EXPENSES -> {
-                        println(ExpensesCategories.entries)
-                        ExpensesCategories.valueOf(readln())
-                    }
+    fun run(){
+        welcomeSection()
+        while (true) {
+            printOptions()
+            when (readln().lowercase()) {
+                "a" -> addTransaction()
+                "e" -> editTransaction()
+                "v" -> viewTransactions()
+                "d" -> deleteTransaction()
+                "m" -> monthlySummaryReport()
+                "r" -> balanceReport()
+                "q" -> {
+                    println("Thanks")
+                    break
                 }
-
-                transactionsManager.addTransaction(
-                    Transaction(
-                        amount = amount,
-                        category = category,
-                        transactionsType = type
-                    )
-                )
+                else -> println("Invalid Option")
             }
 
-            "e" -> {
-                println("edit transaction ")
-                print("enter id ")
-                val input = readln()
-                val uuid = UUID.fromString(input)
-
-                print("enter amount :")
-                val amount: Double = readln().toDouble()
-
-                print("enter type : ")
-                val type: TransactionsType = TransactionsType.valueOf(readln())
-
-
-                val category = when (type) {
-                    TransactionsType.INCOME -> {
-                        IncomeCategories.entries.forEach {
-                            it.categoryName
-                        }
-                        println(IncomeCategories.entries)
-                        IncomeCategories.valueOf(readln())
-                    }
-
-                    TransactionsType.EXPENSES -> {
-                        println(ExpensesCategories.entries)
-                        ExpensesCategories.valueOf(readln())
-                    }
-                }
-
-                transactionsManager.editTransaction(
-                    Transaction(
-                        amount = amount,
-                        category = category,
-                        transactionsType = type,
-                        id = uuid
-                    )
-                )
-            }
-
-            "v" -> {
-                transactionsManager.viewTransactions()
-
-            }
-
-            "d" -> {
-                println("delete transaction")
-                val idInput = readln()
-                val uuid = UUID.fromString(idInput)
-                transactionsManager.deleteTransaction(uuid)
-            }
-
-            "m" -> {
-                val report = monthlySummaryReport.generateReport()
-                println(report)
-
-            }
-
-            "r" -> {
-                val report = balanceReport.generateReport()
-                println(report)
-            }
-
-            "q" -> {
-                println("Thanks")
+            print("Do you want to perform another action? (y/n): ")
+            val continueChoice = readln().lowercase()
+            if (continueChoice != "y") {
+                println("Goodbye 👋")
                 break
             }
-
-            else -> {
-                println("Invalid Option")
-            }
-
         }
     }
 
-}
+    private fun welcomeSection() {
+        println("************* ")
+        println("Welcome to your Finance Tracker App ")
+        println("************* ")
 
+        var name: String
+
+        do {
+            print("Please enter your name: ")
+            name = readln().trim()
+
+            if (name.isEmpty()) {
+                println("⚠️ Name IsEmpty. Please try again.")
+            }
+        } while (name.isEmpty())
+
+        println("*************")
+        println("Welcome $name")
+
+    }
+    private fun printOptions() {
+        println("""
+        ********************
+=== You Have Many Options To Choice ===
+        ********************
+Add Transaction ->  press letter ( a )
+Edit Transaction -> press letter ( e )
+View Transaction -> press letter ( v )
+Delete Transaction ->  press letter ( d )
+Show your monthly summary report ->  press letter ( m )
+Show your balance report ->  press letter ( r ) 
+Exit the app ->  press letter ( q )
+What do you want : 
+""")
+    }
+
+    private fun addTransaction() {
+        println("Add Transaction")
+        print("Enter Amount :")
+        val amount: Double = readln().toDouble()
+
+        print("Enter Type ( INCOME - EXPENSES ) : ")
+        val type: TransactionsType = TransactionsType.valueOf(readln())
+
+        print("Enter Category :")
+        val category = when (type) {
+            TransactionsType.INCOME -> {
+                IncomeCategories.entries.forEach {
+                    it.categoryName
+                }
+                println(IncomeCategories.entries)
+                IncomeCategories.valueOf(readln())
+            }
+
+            TransactionsType.EXPENSES -> {
+                println(ExpensesCategories.entries)
+                ExpensesCategories.valueOf(readln())
+            }
+        }
+
+
+        val add = Transaction(amount = amount, category = category, transactionsType = type)
+        transactionsManager.addTransaction(add)
+
+        println("Transaction added!")
+    }
+    private fun editTransaction(){
+        println("Edit Transaction ")
+        println("Enter Id  Option ")
+        getIdTransaction()
+        val input = readln()
+        val uuid = UUID.fromString(input)
+
+        print("Enter Amount :")
+        val amount: Double = readln().toDouble()
+
+        print("Enter Type ( INCOME - EXPENSES ) : ")
+        val type: TransactionsType = TransactionsType.valueOf(readln())
+
+        print("Enter Category :")
+        val category = when (type) {
+            TransactionsType.INCOME -> {
+                IncomeCategories.entries.forEach {
+                    it.categoryName
+                }
+                println(IncomeCategories.entries)
+                IncomeCategories.valueOf(readln())
+            }
+
+            TransactionsType.EXPENSES -> {
+                println(ExpensesCategories.entries)
+                ExpensesCategories.valueOf(readln())
+            }
+        }
+
+        val updated = Transaction(uuid,amount,type,category)
+        //Check updated
+        check(transactionsManager.editTransaction(updated))
+    }
+    private fun viewTransactions(){
+        transactionsManager.viewTransactions()
+    }
+    private fun deleteTransaction(){
+
+        println("Delete Transaction")
+        println("Enter Id  Option ")
+        getIdTransaction()
+
+        val idInput = readln()
+        val uuid = UUID.fromString(idInput)
+
+        //Check delete
+        check(transactionsManager.deleteTransaction(uuid))
+    }
+    private fun monthlySummaryReport(){
+
+        val monthlySummaryReport: Report = MonthlySummaryReport(transactionsManager)
+
+        println("MonthlyReport")
+        val report = monthlySummaryReport.generateReport()
+        println(report)
+    }
+    private fun balanceReport(){
+        val balanceReport: Report = BalanceReportImpl(transactionsManager)
+        println("BalanceReport")
+        val report = balanceReport.generateReport()
+        println(report)
+    }
+    private fun getIdTransaction(){
+        print("IDTransactions: ")
+        transactionsManager.getAllTransactions().forEach{
+            print("${it.id} | ")
+        }
+        println("\n")
+    }
+
+    private fun check(data: Boolean) {
+        if (data) println("Transaction Ok")
+        else println("Transaction not found.")
+    }
+
+
+
+}
