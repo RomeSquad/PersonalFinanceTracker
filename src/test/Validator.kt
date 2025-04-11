@@ -1,7 +1,6 @@
-package test.managerActionTest
+package test
 
 import entity.TransactionsType
-
 
 object Validator {
 
@@ -21,5 +20,7 @@ object Validator {
         if (value < 0) return false
         return true
     }
+
+
 
 }
