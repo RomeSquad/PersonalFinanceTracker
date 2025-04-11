@@ -1,8 +1,8 @@
 package entity
 
 enum class ExpensesCategories(
-    override val categoryName: String
-):ICategory{
+     val categoryName: String
+){
     SHOPPING(categoryName = "shopping"),
     TRAVEL(categoryName = "travel"),
     FOOD(categoryName = "food"),
