@@ -27,6 +27,7 @@ class TransactionsInMemory : TransactionsManager {
     }
 
     override fun editTransaction(transaction: Transaction): Boolean {
+
         val index = transactions.indexOfFirst { it.id == transaction.id }
         return if (index != -1) {
             transactions[index] = transaction

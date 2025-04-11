@@ -9,7 +9,7 @@ fun printTransaction(transaction: Transaction) {
             Amount: ${transaction.amount}
             Category: ${transaction.category}
             Date: ${transaction.date}
-        """.trimMargin()
+        """.trim()
     )
     println("====================")
 }
