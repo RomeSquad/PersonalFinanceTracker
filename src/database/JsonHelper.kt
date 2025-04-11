@@ -8,7 +8,7 @@ import kotlinx.serialization.json.Json
 import java.io.File
 
 object JsonHelper {
-    val FILE_PATH = "serialized-transactions/transactions.json"
+    val FILE_PATH = "transactions.json"
     val json = Json {
         prettyPrint = true
     }
