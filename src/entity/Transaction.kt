@@ -6,9 +6,9 @@ import java.util.*
 data class Transaction(
     val id: UUID = UUID.randomUUID(),
     val amount: Double,
-    val transactionsType:TransactionsType,
-    val  ICategory:ICategory,
-    val date: LocalDate,
+    val transactionsType:TransactionsType, //TODO : Replace it with enum
+    val  category:ICategory,
+    val date: LocalDate= LocalDate.now(),
 ) {
     fun validAmount(): Boolean {
         val result = amount > 0
@@ -22,7 +22,7 @@ data class Transaction(
     }
 
     override fun toString(): String {
-        return "Transaction(id=$id, amount=$amount, category='$ICategory', date=$date)"
+        return "Transaction(id=$id, amount=$amount, category='$category', date=$date)"
     }
     fun validDate(): Boolean {
         val result = !date.isAfter(LocalDate.now())
