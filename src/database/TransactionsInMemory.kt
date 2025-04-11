@@ -68,7 +68,7 @@ class TransactionsInMemory : TransactionsManager {
             """
             ID: ${transaction.id}
             Amount: ${transaction.amount}
-            Category: ${transaction.ICategory}
+            Category: ${transaction.category}
             Date: ${transaction.date}
             """
         )
