@@ -24,7 +24,7 @@ private fun optionSection() {
     println("Show your balance report ->  press letter ( r )  ")
     println("Exit the app ->  press letter ( q ) ")
 
-    print("what do you want : ")
+    print("what do you want : ") // Too rude :(
     val option: String = readln()
 
 
@@ -37,7 +37,7 @@ private fun optionSection() {
             println("add transaction ")
             print("enter amount :")
             val input = readln()
-            print("enter cat :")
+            print("enter cat :") // ₍^. .^₎⟆
             val input2 = readln()
             print("enter type :")
             val input3 = readln()
@@ -57,7 +57,11 @@ private fun optionSection() {
             //TODO call edit fun
 
             println("edit transaction ")
-            print("enter now amount :")
+            print("    ∧,,,∧\n" +
+                    " (• ⩊ •)\n" +
+                    "|￣U U￣￣￣￣￣￣￣￣￣|\n" +
+                    "|    (type id...)   |   \n" +
+                    "￣￣￣￣￣￣￣￣￣￣￣￣ |")
             val input = readln()
             print("enter now cat :")
             val input2 = readln()
@@ -76,18 +80,16 @@ private fun optionSection() {
         }
 
         "v" -> {
-            //TODO call view fun
+
             transactionsManager.getAllTransactions()
-           // transactionsManager.getTransaction("535")
+
+        }
+        "va"->{
 
         }
 
         "d" -> {
-            //TODO call delete fun
 
-                //     transactionsManager.deleteTransaction(
-            //// id
-            //            )
         }
 
         "m" -> {
@@ -101,7 +103,10 @@ private fun optionSection() {
         }
 
         "q" -> {
-           println("Thanks")
+            println("Thanks " +
+                    " ∧ , ,,  ∧\n" +
+                    "(  ̳• · • ̳)\n" +
+                    "/    づ♡ ")
         }
 
         else -> {
