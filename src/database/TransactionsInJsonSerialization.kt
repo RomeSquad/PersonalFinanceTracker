@@ -30,19 +30,28 @@ class TransactionsInJsonSerialization : TransactionsManager {
     }
 
     override fun editTransaction(transaction: Transaction): Boolean {
-        TODO("Not yet implemented")
+        val transactions = JsonHelper.readTransactions()
+        if (!transactions.removeIf { it.id == transaction.id })
+            return false
+        transactions.add(transaction)
+        JsonHelper.writeTransactions(transactions)
+        return true
     }
 
     override fun getTotalBalance(): Double {
-        TODO("Not yet implemented")
+        val transactions = JsonHelper.readTransactions()
+        return transactions.map { if (it.transactionsType == TransactionsType.INCOME) it.amount else it.amount.unaryMinus() }
+            .sum()
     }
 
     override fun getTotalIncome(): Double {
-        TODO("Not yet implemented")
+        val transactions = JsonHelper.readTransactions()
+        return transactions.filter { it.transactionsType == TransactionsType.INCOME }.map { it.amount }.sum()
     }
 
     override fun getTotalExpenses(): Double {
-        TODO("Not yet implemented")
+        val transactions = JsonHelper.readTransactions()
+        return transactions.filter { it.transactionsType == TransactionsType.EXPENSES }.map { it.amount }.sum()
     }
 
 
