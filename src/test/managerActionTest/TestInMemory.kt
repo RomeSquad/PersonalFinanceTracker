@@ -1,6 +1,7 @@
 package test.managerActionTest
 
 import database.TransactionsInMemory
+import entity.Category
 import entity.ExpensesCategories
 import entity.Transaction
 import entity.TransactionsType
@@ -66,7 +67,7 @@ fun checkDeleteTransactionWithObject() {
 fun newMockTransaction(): Transaction {
     return Transaction(
         amount = Math.random(),
-        category = ExpensesCategories.TRAVEL,
+        category = Category.Expenses(ExpensesCategories.TRAVEL),
         transactionsType = TransactionsType.EXPENSES,
         date = LocalDate.now()
     )

@@ -1,11 +1,7 @@
 package ui
 
-import database.TransactionsInMemory
 import database.TransactionsManager
-import entity.ExpensesCategories
-import entity.IncomeCategories
-import entity.Transaction
-import entity.TransactionsType
+import entity.*
 import report.BalanceReportImpl
 import report.MonthlySummaryReport
 import report.Report
@@ -76,36 +72,40 @@ Exit the app ->  press letter ( q )
 What do you want : 
 """)
     }
-
     private fun addTransaction() {
-        println("Add Transaction")
-        print("Enter Amount :")
-        val amount: Double = readln().toDouble()
+        println("Choose Type:")
+        println("1 for INCOME")
+        println("2 for EXPENSES")
+        val type = readln().toIntOrNull() ?: return println("Invalid input")
 
-        print("Enter Type ( INCOME - EXPENSES ) : ")
-        val type: TransactionsType = TransactionsType.valueOf(readln())
-
-        print("Enter Category :")
         val category = when (type) {
-            TransactionsType.INCOME -> {
+            1 -> {
+                println("Choose Category:")
+                var i = 1
                 IncomeCategories.entries.forEach {
-                    it.categoryName
+                    println("${i++} -> $it")
                 }
-                println(IncomeCategories.entries)
-                IncomeCategories.valueOf(readln())
+                val selected = readln().toInt() -1
+                val incomeCat = IncomeCategories.entries.getOrNull(selected ?: -1)
+                    ?: return println("Invalid category")
+
+                Category.Income(incomeCat)
             }
 
-            TransactionsType.EXPENSES -> {
-                println(ExpensesCategories.entries)
-                ExpensesCategories.valueOf(readln())
+            2 -> {
+                println("Choose Category:")
+                var i = 1
+                ExpensesCategories.entries.forEach {
+                    println("${i++} -> $it")
+                }
+                val selected = readln().toInt() - 1
+                val expenseCat = ExpensesCategories.entries.getOrNull(selected ?: -1)
+                    ?: return println("Invalid category")
+                Category.Expenses(expenseCat)
             }
+
+            else -> return println("Invalid type")
         }
-
-
-        val add = Transaction(amount = amount, category = category, transactionsType = type)
-        transactionsManager.addTransaction(add)
-
-        println("Transaction added!")
     }
     private fun editTransaction(){
         println("Edit Transaction ")
@@ -123,16 +123,15 @@ What do you want :
         print("Enter Category :")
         val category = when (type) {
             TransactionsType.INCOME -> {
-                IncomeCategories.entries.forEach {
-                    it.categoryName
-                }
                 println(IncomeCategories.entries)
-                IncomeCategories.valueOf(readln())
+                val incomeCategory =  IncomeCategories.valueOf(readln())
+                Category.Income(incomeCategory)
             }
 
             TransactionsType.EXPENSES -> {
                 println(ExpensesCategories.entries)
-                ExpensesCategories.valueOf(readln())
+                val expensesCategory =  ExpensesCategories.valueOf(readln())
+                Category.Expenses(expensesCategory)
             }
         }
 
