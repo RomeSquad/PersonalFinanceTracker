@@ -5,20 +5,28 @@ import java.util.*
 
 class TransactionsInJsonSerialization : TransactionsManager {
     override fun addTransaction(transaction: Transaction) {
-        TODO("Not yet implemented")
+        val transactions = JsonHelper.readTransactions()
+        transactions.add(transaction)
+        JsonHelper.writeTransactions(transactions)
     }
 
     override fun deleteTransaction(transactionID: UUID): Boolean {
-        TODO("Not yet implemented")
+        val transactions = JsonHelper.readTransactions()
+        val updatedTransactions = transactions.filter { it.id != transactionID }
+        JsonHelper.writeTransactions(updatedTransactions)
+        return transactions.any { it.id == transactionID }
     }
 
     override fun viewTransactions() {
-        TODO("Not yet implemented")
+        val transactions = JsonHelper.readTransactions()
+        transactions.forEach { transaction ->
+            println(transaction)
+        }
     }
 
 
     override fun getAllTransactions(): List<Transaction> {
-        TODO("Not yet implemented")
+        return JsonHelper.readTransactions()
     }
 
     override fun editTransaction(transaction: Transaction): Boolean {
