@@ -1,12 +1,13 @@
 package entity
 
+import report.Report
 import java.time.LocalDate
 import java.util.*
 
 data class Transaction(
     val id: UUID = UUID.randomUUID(),
     val amount: Double,
-    val transactionsType:TransactionsType, //TODO : Replace it with enum
+    val transactionsType:Report,
     val  category:Categories,
     val date: LocalDate,
 ) {
@@ -22,7 +23,14 @@ data class Transaction(
     }
 
     override fun toString(): String {
-        return "Transaction(id=$id, amount=$amount, category='$category', date=$date)"
+        return "               /| _ ╱|、  \n" +
+                "             ( •̀ㅅ •́  )\n" +
+                "           ＿ノ ヽ ノ＼＿ \n" +
+                "         /　`/ ⌒Ｙ⌒ Ｙ　 \\\n" +
+                "        ( 　(三ヽ人　 /　 　|\n" +
+                "        |　ﾉ⌒＼ ￣￣ヽ　 ノ\n" +
+                "        ヽ＿＿＿＞､＿＿／\n" +
+                "           ｜( 王 ﾉ〈 \n"
     }
     fun validDate(): Boolean {
         val result = !date.isAfter(LocalDate.now())
