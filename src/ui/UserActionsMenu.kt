@@ -2,9 +2,9 @@ package ui
 
 import database.TransactionsManager
 import entity.*
-import feature.report.BalanceReportImpl
-import feature.report.MonthlySummaryReport
-import feature.report.Report
+import report.BalanceReportImpl
+import report.MonthlySummaryReport
+import report.Report
 import java.util.*
 
 
