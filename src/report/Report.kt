@@ -1,4 +1,4 @@
-package feature.report
+package report
 
 interface Report {
     fun generateReport(): String

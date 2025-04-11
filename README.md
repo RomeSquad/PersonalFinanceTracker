@@ -52,10 +52,10 @@ This application is built with:
   - `TransactionsType.kt` - Enum representing Income or Expense
 
 ## Reporting
-- `feature.report/`
-  - `BalanceReport.kt` - Generates balance feature.report
+- `report/`
+  - `BalanceReport.kt` - Generates balance report
   - `MonthlySummaryReport.kt` - Generates monthly summaries
-  - `Report.kt` - Common feature.report interface
+  - `Report.kt` - Common report interface
 
 ## Testing
 - `test/`
