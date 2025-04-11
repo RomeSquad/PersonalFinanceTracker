@@ -54,7 +54,7 @@ class TransactionsInMemory : TransactionsManager {
 
     override fun viewTransactions() {
         if (transactions.isEmpty()) {
-            println("No transactions found. \nTo add a new transaction, please go to the main menu and select 'Add'.")
+            println("No transactions found. To add a new transaction, please go to the main menu and select 'Add'.")
         } else {
             transactions.forEach { transaction ->
                 printTransaction(transaction)
