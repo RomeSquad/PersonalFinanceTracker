@@ -1,6 +1,7 @@
 package database
 
 import entity.Transaction
+import entity.TransactionsType
 import java.util.*
 
 class TransactionsInJsonSerialization : TransactionsManager {
