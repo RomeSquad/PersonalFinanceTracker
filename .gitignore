@@ -46,3 +46,11 @@ bin/
 
 ### 
 /.idea/
+.idea/kotlinc.xml
+.idea/misc.xml
+.idea/modules.xml
+gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
+gradlew
+gradlew.bat
+PersonalFinanceTracker.iml
