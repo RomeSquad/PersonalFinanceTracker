@@ -1,8 +1,8 @@
 package entity
 
 enum class IncomeCategories(
-    override val categoryName: String
-) : ICategory{
+     val categoryName: String
+) {
     SALARY(categoryName = "salary"),
     FREELANCE(categoryName = "freelance"),
     BUSINESS(categoryName = "business"),
