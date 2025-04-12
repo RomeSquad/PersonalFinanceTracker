@@ -14,7 +14,7 @@ class UserActionsMenu(private val transactionsManager: TransactionsManager) {
         welcomeSection()
         while (true) {
             printOptions()
-            when (readln().lowercase()) {
+            when (readln().trim().lowercase()) {
                 "a" -> addTransaction()
                 "e" -> editTransaction()
                 "v" -> viewTransactions()
@@ -29,7 +29,7 @@ class UserActionsMenu(private val transactionsManager: TransactionsManager) {
             }
 
             print("Do you want to perform another action? (y/n): ")
-            val continueChoice = readln().lowercase()
+            val continueChoice = readln().trim().lowercase()
             if (continueChoice != "y") {
                 println("Goodbye 👋")
                 break
@@ -76,7 +76,7 @@ What do you want :
         println("Choose Type:")
         println("1 for INCOME")
         println("2 for EXPENSES")
-        val type = readln().toIntOrNull() ?: return println("Invalid input")
+        val type = readln().trim().toIntOrNull() ?: return println("Invalid input")
 
         val category = when (type) {
             1 -> {
@@ -118,7 +118,7 @@ What do you want :
         val amount: Double = readln().toDouble()
 
         print("Enter Type ( INCOME - EXPENSES ) : ")
-        val type: TransactionsType = TransactionsType.valueOf(readln())
+        val type: TransactionsType = TransactionsType.valueOf(readln().trim())
 
         print("Enter Category :")
         val category = when (type) {
@@ -137,7 +137,8 @@ What do you want :
 
         val updated = Transaction(uuid,amount,type,category)
         //Check updated
-        check(transactionsManager.editTransaction(updated))
+        check(transactionsManager.editTransaction(updated), "Edited")
+
     }
     private fun viewTransactions(){
         transactionsManager.viewTransactions()
@@ -152,7 +153,8 @@ What do you want :
         val uuid = UUID.fromString(idInput)
 
         //Check delete
-        check(transactionsManager.deleteTransaction(uuid))
+        check(transactionsManager.deleteTransaction(uuid), "Deleted")
+
     }
     private fun monthlySummaryReport(){
 
@@ -164,7 +166,7 @@ What do you want :
     }
     private fun balanceReport(){
         val balanceReport: Report = BalanceReportImpl(transactionsManager)
-        println("BalanceReport")
+
         val report = balanceReport.generateReport()
         println(report)
     }
@@ -176,9 +178,9 @@ What do you want :
         println("\n")
     }
 
-    private fun check(data: Boolean) {
-        if (data) println("Transaction Ok")
-        else println("Transaction not found.")
+    private fun check(data: Boolean,action: String) {
+        if (data) println("Transaction $action Successfully")
+        else println("Transaction $action not found.")
     }
 
 
