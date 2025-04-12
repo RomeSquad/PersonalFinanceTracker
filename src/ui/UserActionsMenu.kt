@@ -5,7 +5,6 @@ import entity.*
 import report.BalanceReportImpl
 import report.MonthlySummaryReport
 import report.Report
-import java.util.*
 
 
 class UserActionsMenu(private val transactionsManager: TransactionsManager) {
@@ -75,6 +74,7 @@ Exit the app ->  press letter ( q )
 What do you want : """
         )
     }
+
     private fun addTransaction() {
         println("Add Transaction")
         val (amount, type, category) = getTransactionInput()
@@ -92,7 +92,7 @@ What do you want : """
         val transactionsList = transactionsManager.getAllTransactions()
 
         transactionsList.forEachIndexed { index, transaction ->
-            println("[ ${index + 1} - Transaction ${transaction.amount}, ${transaction.transactionsType}, ${transaction.category.categoryName} ]")
+            println("[ ${index + 1} - Transaction ${transaction.amount}, ${transaction.transactionsType}, ${transaction.category} ]")
         }
 
         print("Enter transaction number to edit: ")
@@ -146,7 +146,7 @@ What do you want : """
         val transactionsList = transactionsManager.getAllTransactions()
 
         transactionsList.forEachIndexed { index, transaction ->
-            println("[ ${index + 1} - Transaction ${transaction.amount}, ${transaction.transactionsType}, ${transaction.category.categoryName} ]")
+            println("[ ${index + 1} - Transaction ${transaction.amount}, ${transaction.transactionsType}, ${transaction.category} ]")
         }
 
         print("Enter transaction number to delete: ")
@@ -162,7 +162,7 @@ What do you want : """
         val selectedId = selectedTransaction.id
 
         //Check delete
-        check(transactionsManager.deleteTransaction(selectedId),"Deleted")
+        check(transactionsManager.deleteTransaction(selectedId), "Deleted")
     }
 
     private fun monthlySummaryReport() {
@@ -179,47 +179,37 @@ What do you want : """
         println(report)
     }
 
-    fun getTransactionInput(): Triple<Double, TransactionsType, ICategory> {
+
+    fun getTransactionInput(): Triple<Double, TransactionsType, Category> {
+
 
         var amount: Double? = null
-
         do {
             print("Enter amount: ")
             val input = readln().trim()
-
             amount = input.toDoubleOrNull()
 
-            if (amount == null) {
-                println("Invalid amount. Please enter a numeric value.")
-            } else if (amount <= 0) {
-                println("Amount must be greater than zero.")
+            if (amount == null || amount <= 0) {
+                println("⚠️ Invalid amount. Please enter a positive number.")
                 amount = null
             }
-
         } while (amount == null)
 
-
         var type: TransactionsType? = null
-
         do {
-            print(
+            println(
                 """
 **********************************************
-=== Enter Typ You Have Many Options To Choice ===
-**********************************************
- Enter Type
-INCOME Enter -> 1
-EXPENSES Enter -> 2
- What do you want : """
+=== Select Transaction Type ===
+1. INCOME
+2. EXPENSES
+What do you want: 
+""".trimIndent()
             )
-            val input = readln().trim()
-
-            if (input == "1") {
-                type = TransactionsType.INCOME
-            } else if (input == "2") {
-                type = TransactionsType.EXPENSES
-            } else {
-                println("Invalid input. Please enter only 1 or 2 .")
+            when (readln().trim()) {
+                "1" -> type = TransactionsType.INCOME
+                "2" -> type = TransactionsType.EXPENSES
+                else -> println("Invalid input. Please enter only 1 or 2.")
             }
         } while (type == null)
 
@@ -227,79 +217,53 @@ EXPENSES Enter -> 2
             TransactionsType.INCOME -> {
                 var selected: IncomeCategories? = null
                 do {
-                    println("Available income categories:")
-                    IncomeCategories.entries.forEachIndexed { index, category ->
-                        println("${index + 1} - ${category.categoryName}")
+                    println("Available Income Categories:")
+                    IncomeCategories.entries.forEachIndexed { index, cat ->
+                        println("${index + 1} - ${cat.categoryName}")
                     }
 
                     print("Choose number: ")
-                    val input = readln().trim()
+                    val input = readln().trim().toIntOrNull()
 
-                    if (input == "1") selected =
-                        IncomeCategories.entries.find { it.categoryName.lowercase() == "salary" }
-                    else if (input == "2") selected =
-                        IncomeCategories.entries.find { it.categoryName.lowercase() == "freelance" }
-                    else if (input == "3") selected =
-                        IncomeCategories.entries.find { it.categoryName.lowercase() == "business" }
-                    else if (input == "4") selected =
-                        IncomeCategories.entries.find { it.categoryName.lowercase() == "other" }
+                    selected = if (input != null && input in 1..IncomeCategories.entries.size) {
+                        IncomeCategories.entries[input - 1]
+                    } else null
+
                     if (selected == null) {
-                        println("Invalid category. Please choose from the list.")
+                        println("Invalid selection. Try again.")
                     }
                 } while (selected == null)
-                selected
+                Category.Income(selected)
             }
 
             TransactionsType.EXPENSES -> {
                 var selected: ExpensesCategories? = null
                 do {
-                    println("Available expense categories:")
-                    ExpensesCategories.entries.forEachIndexed { index, category ->
-                        println("${index + 1} - ${category.categoryName}")
+                    println("Available Expense Categories:")
+                    ExpensesCategories.entries.forEachIndexed { index, cat ->
+                        println("${index + 1} - ${cat.categoryName}")
                     }
 
-                    print("Choose one: ")
-                    val input = readln().trim()
+                    print("Choose number: ")
+                    val input = readln().trim().toIntOrNull()
 
-                    if (input == "1") selected =
-                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "shopping" }
-                    else if (input == "2") selected =
-                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "travel" }
-                    else if (input == "3") selected =
-                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "food" }
-                    else if (input == "4") selected =
-                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "rent" }
-                    else if (input == "5") selected =
-                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "gifts" }
-                    else if (input == "6") selected =
-                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "bills" }
-                    else if (input == "7") selected =
-                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "transportation" }
-                    else if (input == "8") selected =
-                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "entertainment" }
-                    else if (input == "9") selected =
-                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "personal needs" }
-                    else if (input == "10") selected =
-                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "other" }
-                    else {
-                        println("Invalid category. Please choose from the list.")
-                    }
+                    selected = if (input != null && input in 1..ExpensesCategories.entries.size) {
+                        ExpensesCategories.entries[input - 1]
+                    } else null
+
                     if (selected == null) {
-                        println("Invalid category. Please choose from the list.")
+                        println("Invalid selection. Try again.")
                     }
-
-
                 } while (selected == null)
-                selected
+                Category.Expenses(selected)
             }
         }
-
 
         return Triple(amount, type, category)
     }
 
 
-    private fun check(data: Boolean,tpye: String) {
+    private fun check(data: Boolean, tpye: String) {
         if (data) println("Transaction ${tpye}")
         else println("Transaction not found.")
     }
