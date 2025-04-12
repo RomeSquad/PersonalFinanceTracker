@@ -164,12 +164,12 @@ What do you want :
     }
     private fun balanceReport(){
         val balanceReport: Report = BalanceReportImpl(transactionsManager)
-        println("BalanceReport")
+
         val report = balanceReport.generateReport()
         println(report)
     }
     private fun getIdTransaction(){
-        print("IDTransactions: ")
+
         transactionsManager.getAllTransactions().forEach{
             print("${it.id} | ")
         }
