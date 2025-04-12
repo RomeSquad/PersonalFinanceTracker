@@ -15,7 +15,7 @@ class MonthlySummaryReport(private val transactionsManager: TransactionsManager)
         reportBuilder.append("Transactions Monthly List:\n")
 
         data.forEach { transaction ->
-            reportBuilder.append("• Date: ${transaction.date} | Amount: ${transaction.amount} | Description: ${transaction.category}\n")
+            reportBuilder.append("• Date: ${transaction.date} | Amount: ${transaction.amount} | type :${transaction.transactionsType} | Description: ${transaction.category}\n")
         }
 
         return reportBuilder.toString()
