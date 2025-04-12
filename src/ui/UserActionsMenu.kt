@@ -1,20 +1,15 @@
 package ui
 
-import database.TransactionsInMemory
 import database.TransactionsManager
-import entity.ExpensesCategories
-import entity.IncomeCategories
-import entity.Transaction
-import entity.TransactionsType
+import entity.*
 import report.BalanceReportImpl
 import report.MonthlySummaryReport
 import report.Report
-import java.util.*
 
 
 class UserActionsMenu(private val transactionsManager: TransactionsManager) {
 
-    fun run(){
+    fun run() {
         welcomeSection()
         while (true) {
             printOptions()
@@ -29,6 +24,7 @@ class UserActionsMenu(private val transactionsManager: TransactionsManager) {
                     println("Thanks")
                     break
                 }
+
                 else -> println("Invalid Option")
             }
 
@@ -61,8 +57,10 @@ class UserActionsMenu(private val transactionsManager: TransactionsManager) {
         println("Welcome $name")
 
     }
+
     private fun printOptions() {
-        println("""
+        print(
+            """
         ********************
 === You Have Many Options To Choice ===
         ********************
@@ -73,115 +71,238 @@ Delete Transaction ->  press letter ( d )
 Show your monthly summary report ->  press letter ( m )
 Show your balance report ->  press letter ( r ) 
 Exit the app ->  press letter ( q )
-What do you want : 
-""")
+What do you want : """
+        )
     }
 
     private fun addTransaction() {
         println("Add Transaction")
-        print("Enter Amount :")
-        val amount: Double = readln().toDouble()
-
-        print("Enter Type ( INCOME - EXPENSES ) : ")
-        val type: TransactionsType = TransactionsType.valueOf(readln())
-
-        print("Enter Category :")
-        val category = when (type) {
-            TransactionsType.INCOME -> {
-                IncomeCategories.entries.forEach {
-                    it.categoryName
-                }
-                println(IncomeCategories.entries)
-                IncomeCategories.valueOf(readln())
-            }
-
-            TransactionsType.EXPENSES -> {
-                println(ExpensesCategories.entries)
-                ExpensesCategories.valueOf(readln())
-            }
-        }
-
+        val (amount, type, category) = getTransactionInput()
 
         val add = Transaction(amount = amount, category = category, transactionsType = type)
         transactionsManager.addTransaction(add)
 
         println("Transaction added!")
     }
-    private fun editTransaction(){
-        println("Edit Transaction ")
-        println("Enter Id  Option ")
-        getIdTransaction()
-        val input = readln()
-        val uuid = UUID.fromString(input)
 
-        print("Enter Amount :")
-        val amount: Double = readln().toDouble()
+    private fun editTransaction() {
+        println("=== Edit Transaction ===")
+        println("Select a transaction to edit:")
 
-        print("Enter Type ( INCOME - EXPENSES ) : ")
-        val type: TransactionsType = TransactionsType.valueOf(readln())
+        val transactionsList = transactionsManager.getAllTransactions()
 
-        print("Enter Category :")
-        val category = when (type) {
-            TransactionsType.INCOME -> {
-                IncomeCategories.entries.forEach {
-                    it.categoryName
-                }
-                println(IncomeCategories.entries)
-                IncomeCategories.valueOf(readln())
-            }
-
-            TransactionsType.EXPENSES -> {
-                println(ExpensesCategories.entries)
-                ExpensesCategories.valueOf(readln())
-            }
+        transactionsList.forEachIndexed { index, transaction ->
+            println("[ ${index + 1} - Transaction ${transaction.amount}, ${transaction.transactionsType}, ${transaction.category.categoryName} ]")
         }
 
-        val updated = Transaction(uuid,amount,type,category)
-        //Check updated
-        check(transactionsManager.editTransaction(updated))
-    }
-    private fun viewTransactions(){
-        transactionsManager.viewTransactions()
-    }
-    private fun deleteTransaction(){
+        print("Enter transaction number to edit: ")
+        val selectedNumber = readln().trim().toIntOrNull()
 
-        println("Delete Transaction")
-        println("Enter Id  Option ")
-        getIdTransaction()
+        if (selectedNumber == null || selectedNumber !in 1..transactionsList.size) {
+            println("Invalid selection.")
+            return
+        }
 
-        val idInput = readln()
-        val uuid = UUID.fromString(idInput)
+
+        val selectedTransaction = transactionsList[selectedNumber - 1]
+        val selectedId = selectedTransaction.id
+
+
+        val (amount, type, category) = getTransactionInput()
+        val updated = Transaction(
+            id = selectedId,
+            amount = amount,
+            transactionsType = type,
+            category = category
+        )
+        transactionsManager.editTransaction(updated)
+
+
+    }
+
+    private fun viewTransactions() {
+        if (transactionsManager.getAllTransactions().isNotEmpty()) {
+            transactionsManager.getAllTransactions().forEachIndexed() { index, transaction ->
+                println(
+                    """-------------------------------
+            ${index + 1}-Transactions
+            Amount: ${transaction.amount}
+            Category: ${transaction.category}
+            Date: ${transaction.date}
+            --------------------------------"""
+                )
+            }
+        } else {
+            println("View Transactions List Empty.")
+        }
+
+
+    }
+
+    private fun deleteTransaction() {
+
+        println("=== DeleteTransaction ===")
+        println("Select a transaction to delete:")
+        val transactionsList = transactionsManager.getAllTransactions()
+
+        transactionsList.forEachIndexed { index, transaction ->
+            println("[ ${index + 1} - Transaction ${transaction.amount}, ${transaction.transactionsType}, ${transaction.category.categoryName} ]")
+        }
+
+        print("Enter transaction number to delete: ")
+        val selectedNumber = readln().trim().toIntOrNull()
+
+        if (selectedNumber == null || selectedNumber !in 1..transactionsList.size) {
+            println("Invalid selection.")
+            return
+        }
+
+
+        val selectedTransaction = transactionsList[selectedNumber - 1]
+        val selectedId = selectedTransaction.id
 
         //Check delete
-        check(transactionsManager.deleteTransaction(uuid))
+        check(transactionsManager.deleteTransaction(selectedId),"Deleted")
     }
-    private fun monthlySummaryReport(){
+
+    private fun monthlySummaryReport() {
 
         val monthlySummaryReport: Report = MonthlySummaryReport(transactionsManager)
 
-        println("MonthlyReport")
         val report = monthlySummaryReport.generateReport()
         println(report)
     }
-    private fun balanceReport(){
+
+    private fun balanceReport() {
         val balanceReport: Report = BalanceReportImpl(transactionsManager)
-        println("BalanceReport")
         val report = balanceReport.generateReport()
         println(report)
     }
-    private fun getIdTransaction(){
-        print("IDTransactions: ")
-        transactionsManager.getAllTransactions().forEach{
-            print("${it.id} | ")
+
+    fun getTransactionInput(): Triple<Double, TransactionsType, ICategory> {
+
+        var amount: Double? = null
+
+        do {
+            print("Enter amount: ")
+            val input = readln().trim()
+
+            amount = input.toDoubleOrNull()
+
+            if (amount == null) {
+                println("Invalid amount. Please enter a numeric value.")
+            } else if (amount <= 0) {
+                println("Amount must be greater than zero.")
+                amount = null
+            }
+
+        } while (amount == null)
+
+
+        var type: TransactionsType? = null
+
+        do {
+            print(
+                """
+**********************************************
+=== Enter Typ You Have Many Options To Choice ===
+**********************************************
+ Enter Type
+INCOME Enter -> 1
+EXPENSES Enter -> 2
+ What do you want : """
+            )
+            val input = readln().trim()
+
+            if (input == "1") {
+                type = TransactionsType.INCOME
+            } else if (input == "2") {
+                type = TransactionsType.EXPENSES
+            } else {
+                println("Invalid input. Please enter only 1 or 2 .")
+            }
+        } while (type == null)
+
+        val category = when (type) {
+            TransactionsType.INCOME -> {
+                var selected: IncomeCategories? = null
+                do {
+                    println("Available income categories:")
+                    IncomeCategories.entries.forEachIndexed { index, category ->
+                        println("${index + 1} - ${category.categoryName}")
+                    }
+
+                    print("Choose number: ")
+                    val input = readln().trim()
+
+                    if (input == "1") selected =
+                        IncomeCategories.entries.find { it.categoryName.lowercase() == "salary" }
+                    else if (input == "2") selected =
+                        IncomeCategories.entries.find { it.categoryName.lowercase() == "freelance" }
+                    else if (input == "3") selected =
+                        IncomeCategories.entries.find { it.categoryName.lowercase() == "business" }
+                    else if (input == "4") selected =
+                        IncomeCategories.entries.find { it.categoryName.lowercase() == "other" }
+                    if (selected == null) {
+                        println("Invalid category. Please choose from the list.")
+                    }
+                } while (selected == null)
+                selected
+            }
+
+            TransactionsType.EXPENSES -> {
+                var selected: ExpensesCategories? = null
+                do {
+                    println("Available expense categories:")
+                    ExpensesCategories.entries.forEachIndexed { index, category ->
+                        println("${index + 1} - ${category.categoryName}")
+                    }
+
+                    print("Choose one: ")
+                    val input = readln().trim()
+
+                    if (input == "1") selected =
+                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "shopping" }
+                    else if (input == "2") selected =
+                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "travel" }
+                    else if (input == "3") selected =
+                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "food" }
+                    else if (input == "4") selected =
+                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "rent" }
+                    else if (input == "5") selected =
+                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "gifts" }
+                    else if (input == "6") selected =
+                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "bills" }
+                    else if (input == "7") selected =
+                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "transportation" }
+                    else if (input == "8") selected =
+                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "entertainment" }
+                    else if (input == "9") selected =
+                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "personal needs" }
+                    else if (input == "10") selected =
+                        ExpensesCategories.entries.find { it.categoryName.lowercase() == "other" }
+                    else {
+                        println("Invalid category. Please choose from the list.")
+                    }
+                    if (selected == null) {
+                        println("Invalid category. Please choose from the list.")
+                    }
+
+
+                } while (selected == null)
+                selected
+            }
         }
-        println("\n")
+
+
+        return Triple(amount, type, category)
     }
 
-    private fun check(data: Boolean) {
-        if (data) println("Transaction Ok")
+
+    private fun check(data: Boolean,tpye: String) {
+        if (data) println("Transaction ${tpye}")
         else println("Transaction not found.")
     }
-
 
 
 }
