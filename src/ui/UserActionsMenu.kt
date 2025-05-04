@@ -14,13 +14,13 @@ class UserActionsMenu(private val transactionsManager: TransactionsManager) {
         while (true) {
             printOptions()
             when (readln().lowercase()) {
-                "a" -> addTransaction()
-                "e" -> editTransaction()
-                "v" -> viewTransactions()
-                "d" -> deleteTransaction()
-                "m" -> monthlySummaryReport()
-                "r" -> balanceReport()
-                "q" -> {
+                "1" -> addTransaction()
+                "2" -> editTransaction()
+                "3" -> viewTransactions()
+                "4" -> deleteTransaction()
+                "5" -> monthlySummaryReport()
+                "6" -> balanceReport()
+                "7" -> {
                     println("Thanks")
                     break
                 }
@@ -64,13 +64,13 @@ class UserActionsMenu(private val transactionsManager: TransactionsManager) {
         ********************
 === You Have Many Options To Choice ===
         ********************
-Add Transaction ->  press letter ( a )
-Edit Transaction -> press letter ( e )
-View Transaction -> press letter ( v )
-Delete Transaction ->  press letter ( d )
-Show your monthly summary report ->  press letter ( m )
-Show your balance report ->  press letter ( r ) 
-Exit the app ->  press letter ( q )
+Add Transaction ->  press letter ( 1 )
+Edit Transaction -> press letter ( 2 )
+View Transaction -> press letter ( 3 )
+Delete Transaction ->  press letter ( 4 )
+Show your monthly summary report ->  press letter ( 5 )
+Show your balance report ->  press letter ( 6 ) 
+Exit the app ->  press letter ( 7 )
 What do you want : """
         )
     }
