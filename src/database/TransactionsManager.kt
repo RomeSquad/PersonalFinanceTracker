@@ -9,7 +9,6 @@ interface TransactionsManager {
     fun viewTransactions()
     fun getAllTransactions() :List<Transaction>
     fun editTransaction(transaction: Transaction): Boolean
-
     fun getTotalBalance(): Double
     fun getTotalIncome(): Double
     fun getTotalExpenses(): Double

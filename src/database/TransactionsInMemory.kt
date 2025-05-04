@@ -50,7 +50,6 @@ class TransactionsInMemory : TransactionsManager {
     override fun getTotalExpenses(): Double {
         return transactions.filter { it.transactionsType == TransactionsType.EXPENSES }.map { it.amount }.sum()
     }
-
     override fun viewTransactions() {
         if (transactions.isEmpty()) {
             println("No transactions found.")
@@ -61,6 +60,4 @@ class TransactionsInMemory : TransactionsManager {
             }
         }
     }
-
-
 }

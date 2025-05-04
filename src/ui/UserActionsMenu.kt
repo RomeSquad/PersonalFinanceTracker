@@ -43,7 +43,6 @@ class UserActionsMenu(private val transactionsManager: TransactionsManager) {
         println("************* ")
 
         var name: String
-
         do {
             print("Please enter your name: ")
             name = readln().trim()
@@ -52,7 +51,6 @@ class UserActionsMenu(private val transactionsManager: TransactionsManager) {
                 println("⚠️ Name IsEmpty. Please try again.")
             }
         } while (name.isEmpty())
-
         println("*************")
         println("Welcome $name")
 
@@ -62,20 +60,20 @@ class UserActionsMenu(private val transactionsManager: TransactionsManager) {
         ********************
 === You Have Many Options To Choice ===
         ********************
-Add Transaction ->  press letter ( 1 )
-Edit Transaction -> press letter ( 2 )
-View Transaction -> press letter ( 3 )
-Delete Transaction ->  press letter ( 4 )
-Show your monthly summary report ->  press letter ( 5 )
-Show your balance report ->  press letter ( 6 ) 
-Exit the app ->  press letter ( 7 )
+Add Transaction ->   ( 1 )
+Edit Transaction ->  ( 2 )
+View Transaction ->  ( 3 )
+Delete Transaction ->  ( 4 )
+Show your monthly summary report ->   ( 5 )
+Show your balance report ->   ( 6 ) 
+Exit the app ->   ( 7 )
 What do you want : 
 """)
     }
     private fun addTransaction() {
         println("Choose Type:")
-        println("1 for INCOME")
-        println("2 for EXPENSES")
+        println("( 1 ) for INCOME")
+        println("( 2 ) for EXPENSES")
         val type = readln().toIntOrNull() ?: return println("Invalid input")
 
         val category = when (type) {

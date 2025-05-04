@@ -16,7 +16,7 @@ class BalanceReportImpl (private  val transactionsManager: TransactionsManager):
             |=================================
             |          BALANCE REPORT         
             |=================================
-            |Total Income:  $${formattedIncome}
+            |Total Income:  $${formattedIncome } 
             |Total Expense: $${formattedExpense}
             |--------------------------------
             |Net Balance:   $${formattedBalance}

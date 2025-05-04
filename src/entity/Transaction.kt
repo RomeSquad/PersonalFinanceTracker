@@ -9,9 +9,4 @@ data class Transaction(
     val transactionsType: TransactionsType,
     val category: Category,
     val date: LocalDate = LocalDate.now(),
-) {
-    override fun toString(): String {
-        return "Transaction(id=$id, amount=$amount, category='$category', date=$date)"
-    }
-
-}
+)
