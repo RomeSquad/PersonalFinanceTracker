@@ -78,7 +78,7 @@ What do you want : """
     }
 
     private fun editTransaction() {
-        println("=== Edit Transaction ===")
+        println("Edit Transaction")
         println("Select a transaction to edit:")
         println(" Num  |Amount  |Transactions Type  |Category ")
         val transactionsList = transactionsManager.getAllTransactions()
@@ -133,7 +133,7 @@ What do you want : """
 
     private fun deleteTransaction() {
 
-        println("=== DeleteTransaction ===")
+        println("DeleteTransaction")
         println("Select a transaction to delete:")
         val transactionsList = transactionsManager.getAllTransactions()
 
@@ -189,7 +189,7 @@ What do you want : """
         do {
             println(
                 """
-=== Select Transaction Type ===
+Select Transaction :
 1. INCOME
 2. EXPENSES
 What do you want: 
