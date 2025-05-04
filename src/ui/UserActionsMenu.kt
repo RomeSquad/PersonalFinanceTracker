@@ -38,9 +38,8 @@ class UserActionsMenu(private val transactionsManager: TransactionsManager) {
     }
 
     private fun welcomeSection() {
-        println("************* ")
+        println("************************************")
         println("Welcome to your Finance Tracker App ")
-        println("************* ")
 
         var name: String
 
@@ -53,46 +52,39 @@ class UserActionsMenu(private val transactionsManager: TransactionsManager) {
             }
         } while (name.isEmpty())
 
-        println("*************")
         println("Welcome $name")
 
     }
 
     private fun printOptions() {
         print(
-            """
-        ********************
-=== You Have Many Options To Choice ===
-        ********************
-Add Transaction ->  press letter ( 1 )
-Edit Transaction -> press letter ( 2 )
-View Transaction -> press letter ( 3 )
-Delete Transaction ->  press letter ( 4 )
-Show your monthly summary report ->  press letter ( 5 )
-Show your balance report ->  press letter ( 6 ) 
-Exit the app ->  press letter ( 7 )
+            """=== You Have Many Options To Choice ===
+( 1 ) -> Add Transaction
+( 2 ) -> Edit Transaction 
+( 3 ) -> View Transaction
+( 4 ) -> Delete Transaction 
+( 5 ) -> Show your monthly summary report
+( 6 ) -> Show your balance report
+( 7 ) -> Exit the app
 What do you want : """
         )
     }
 
     private fun addTransaction() {
-        println("Add Transaction")
         val (amount, type, category) = getTransactionInput()
-
         val add = Transaction(amount = amount, category = category, transactionsType = type)
         transactionsManager.addTransaction(add)
-
         println("Transaction added!")
     }
 
     private fun editTransaction() {
         println("=== Edit Transaction ===")
         println("Select a transaction to edit:")
-
+        println(" Num  |Amount  |Transactions Type  |Category ")
         val transactionsList = transactionsManager.getAllTransactions()
 
         transactionsList.forEachIndexed { index, transaction ->
-            println("[ ${index + 1} - Transaction ${transaction.amount}, ${transaction.transactionsType}, ${transaction.category} ]")
+            println("  ${index + 1} -  ${transaction.amount} -  ${transaction.transactionsType} -  ${transaction.category} ")
         }
 
         print("Enter transaction number to edit: ")
@@ -181,8 +173,6 @@ What do you want : """
 
 
     fun getTransactionInput(): Triple<Double, TransactionsType, Category> {
-
-
         var amount: Double? = null
         do {
             print("Enter amount: ")
@@ -199,7 +189,6 @@ What do you want : """
         do {
             println(
                 """
-**********************************************
 === Select Transaction Type ===
 1. INCOME
 2. EXPENSES
