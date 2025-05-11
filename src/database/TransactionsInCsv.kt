@@ -1,21 +1,18 @@
 package database
 
 import entity.Transaction
+import java.io.File
 import java.util.*
 
-class TransactionsInJsonSerialization : TransactionsManager {
+class TransactionsInCsv :TransactionsManager {
+    val file :File = File ("Transactions.txt")
     override fun addTransaction(transaction: Transaction) {
-        TODO("Not yet implemented")
+        file.appendText("$transaction\n")
     }
 
     override fun deleteTransaction(transactionID: UUID): Boolean {
         TODO("Not yet implemented")
     }
-
-    override fun viewTransactions() {
-        TODO("Not yet implemented")
-    }
-
 
     override fun getAllTransactions(): List<Transaction> {
         TODO("Not yet implemented")
@@ -37,5 +34,7 @@ class TransactionsInJsonSerialization : TransactionsManager {
         TODO("Not yet implemented")
     }
 
-
+    override fun formatTrasction():Boolean {
+        TODO("Not yet implemented")
+    }
 }

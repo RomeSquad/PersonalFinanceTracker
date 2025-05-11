@@ -1,0 +1,7 @@
+Transaction(id=7cb193ac-0837-4b79-b5a1-79f56a6ea037, amount=1.0, transactionsType=INCOME, category=Income(incomeCategory=SALARY), date=2025-05-04)
+Transaction(id=ca12b5b3-8adc-4a8a-a9be-558711c5c189, amount=200.0, transactionsType=EXPENSES, category=Expenses(expensesCategory=PERSONAL_NEEDS), date=2025-05-04)
+Transaction(id=f2162a81-5e1e-4475-8ba6-7bdf6245c9f0, amount=600.0, transactionsType=INCOME, category=Income(incomeCategory=SALARY), date=2025-05-05)
+Transaction(id=85f2c0e1-0dda-4e6a-8291-d26f4f9e1c18, amount=687.0, transactionsType=EXPENSES, category=Expenses(expensesCategory=ENTERTAINMENT), date=2025-05-05)
+Transaction(id=0aa607ed-f8d5-412a-abf9-42ab22edb58b, amount=200.0, transactionsType=INCOME, category=Income(incomeCategory=FREELANCE), date=2025-05-11)
+Transaction(id=ccd99401-9180-477b-9f81-71247ac9236e, amount=200.0, transactionsType=INCOME, category=Income(incomeCategory=FREELANCE), date=2025-05-11)
+Transaction(id=d56304c8-e138-4aaa-b962-a30de25c194a, amount=304.0, transactionsType=INCOME, category=Income(incomeCategory=FREELANCE), date=2025-05-11)

@@ -20,7 +20,9 @@ class UserActionsMenu(private val transactionsManager: TransactionsManager) {
                 "4" -> deleteTransaction()
                 "5" -> monthlySummaryReport()
                 "6" -> balanceReport()
-                "7" -> {
+                "7" -> formatTransction()
+                "8" -> changePassword()
+                "8" -> {
                     println("Thanks")
                     break
                 }
@@ -38,9 +40,8 @@ class UserActionsMenu(private val transactionsManager: TransactionsManager) {
     }
 
     private fun welcomeSection() {
-        println("************* ")
+        println("************************************")
         println("Welcome to your Finance Tracker App ")
-        println("************* ")
 
         var name: String
 
@@ -53,46 +54,41 @@ class UserActionsMenu(private val transactionsManager: TransactionsManager) {
             }
         } while (name.isEmpty())
 
-        println("*************")
         println("Welcome $name")
 
     }
 
     private fun printOptions() {
         print(
-            """
-        ********************
-=== You Have Many Options To Choice ===
-        ********************
-Add Transaction ->  press letter ( 1 )
-Edit Transaction -> press letter ( 2 )
-View Transaction -> press letter ( 3 )
-Delete Transaction ->  press letter ( 4 )
-Show your monthly summary report ->  press letter ( 5 )
-Show your balance report ->  press letter ( 6 ) 
-Exit the app ->  press letter ( 7 )
+            """=== You Have Many Options To Choice ===
+( 1 ) -> Add Transaction
+( 2 ) -> Edit Transaction 
+( 3 ) -> View Transaction
+( 4 ) -> Delete Transaction 
+( 5 ) -> Show your monthly summary report
+( 6 ) -> Show your balance report
+( 7 ) -> format transction
+( 8 ) -> change password
+( 9 ) -> Exit the app
 What do you want : """
         )
     }
 
     private fun addTransaction() {
-        println("Add Transaction")
         val (amount, type, category) = getTransactionInput()
-
         val add = Transaction(amount = amount, category = category, transactionsType = type)
         transactionsManager.addTransaction(add)
-
         println("Transaction added!")
     }
 
     private fun editTransaction() {
-        println("=== Edit Transaction ===")
+        println("Edit Transaction")
         println("Select a transaction to edit:")
-
+        println(" Num  |Amount  |Transactions Type  |Category ")
         val transactionsList = transactionsManager.getAllTransactions()
 
         transactionsList.forEachIndexed { index, transaction ->
-            println("[ ${index + 1} - Transaction ${transaction.amount}, ${transaction.transactionsType}, ${transaction.category} ]")
+            println("  ${index + 1} -  ${transaction.amount} -  ${transaction.transactionsType} -  ${transaction.category} ")
         }
 
         print("Enter transaction number to edit: ")
@@ -119,6 +115,17 @@ What do you want : """
 
 
     }
+    fun formatTransction(){
+        println("Warning: You are trying to delete all transactions.")
+        println("Enter your password")
+        val input :String = readln()
+        if (input == password) {transactionsManager.formatTrasction()
+            println("All transmissions have been successfully deleted . ")}
+        else {
+            println("password is not correct")
+        }
+
+    }
 
     private fun viewTransactions() {
         if (transactionsManager.getAllTransactions().isNotEmpty()) {
@@ -141,7 +148,7 @@ What do you want : """
 
     private fun deleteTransaction() {
 
-        println("=== DeleteTransaction ===")
+        println("DeleteTransaction")
         println("Select a transaction to delete:")
         val transactionsList = transactionsManager.getAllTransactions()
 
@@ -181,8 +188,6 @@ What do you want : """
 
 
     fun getTransactionInput(): Triple<Double, TransactionsType, Category> {
-
-
         var amount: Double? = null
         do {
             print("Enter amount: ")
@@ -199,8 +204,7 @@ What do you want : """
         do {
             println(
                 """
-**********************************************
-=== Select Transaction Type ===
+Select Transaction :
 1. INCOME
 2. EXPENSES
 What do you want: 
@@ -267,6 +271,22 @@ What do you want:
         if (data) println("Transaction ${tpye}")
         else println("Transaction not found.")
     }
+
+    private var password : String = "0000"
+
+    private fun changePassword() {
+        println("Please enter your old password")
+        val oldpassword :String = readln()
+        if (oldpassword != password) {
+            println("password is not correct")
+        }else{
+            println("Please enter your new password")
+            val newpassword = readln()
+            password == newpassword
+            println("Password changed successfully")
+        }
+    }
+
 
 
 }
