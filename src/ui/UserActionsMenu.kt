@@ -20,7 +20,9 @@ class UserActionsMenu(private val transactionsManager: TransactionsManager) {
                 "4" -> deleteTransaction()
                 "5" -> monthlySummaryReport()
                 "6" -> balanceReport()
-                "7" -> {
+                "7" -> formatTransction()
+                "8" -> changePassword()
+                "8" -> {
                     println("Thanks")
                     break
                 }
@@ -65,7 +67,9 @@ class UserActionsMenu(private val transactionsManager: TransactionsManager) {
 ( 4 ) -> Delete Transaction 
 ( 5 ) -> Show your monthly summary report
 ( 6 ) -> Show your balance report
-( 7 ) -> Exit the app
+( 7 ) -> format transction
+( 8 ) -> change password
+( 9 ) -> Exit the app
 What do you want : """
         )
     }
@@ -109,6 +113,17 @@ What do you want : """
         )
         transactionsManager.editTransaction(updated)
 
+
+    }
+    fun formatTransction(){
+        println("Warning: You are trying to delete all transactions.")
+        println("Enter your password")
+        val input :String = readln()
+        if (input == password) {transactionsManager.formatTrasction()
+            println("All transmissions have been successfully deleted . ")}
+        else {
+            println("password is not correct")
+        }
 
     }
 
@@ -256,6 +271,22 @@ What do you want:
         if (data) println("Transaction ${tpye}")
         else println("Transaction not found.")
     }
+
+    private var password : String = "0000"
+
+    private fun changePassword() {
+        println("Please enter your old password")
+        val oldpassword :String = readln()
+        if (oldpassword != password) {
+            println("password is not correct")
+        }else{
+            println("Please enter your new password")
+            val newpassword = readln()
+            password == newpassword
+            println("Password changed successfully")
+        }
+    }
+
 
 
 }
