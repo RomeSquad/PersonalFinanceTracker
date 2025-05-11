@@ -33,4 +33,8 @@ class TransactionsInCsv :TransactionsManager {
     override fun getTotalExpenses(): Double {
         TODO("Not yet implemented")
     }
+
+    override fun formatTrasction():Boolean {
+        TODO("Not yet implemented")
+    }
 }

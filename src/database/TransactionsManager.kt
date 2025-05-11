@@ -11,4 +11,5 @@ interface TransactionsManager {
     fun getTotalBalance(): Double
     fun getTotalIncome(): Double
     fun getTotalExpenses(): Double
+    fun formatTrasction ():Boolean
 }
